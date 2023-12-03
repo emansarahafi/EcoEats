@@ -32,8 +32,10 @@ const FoodCardItem = ({
   };
 
   const decrement = () => {
-    handleDecrement(foodItem.id);
-    handleSumDecrement(foodItem.price);
+    if (foodItem.qte > 0) {
+      handleDecrement(foodItem.id);
+      handleSumDecrement(foodItem.price);
+    }
   };
 
   const deleteProduct = () => {

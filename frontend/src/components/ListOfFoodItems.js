@@ -50,7 +50,7 @@ const ListOfFoodItems = ({
             key={foodItem.id}
             foodItem={foodItem}
             handleIncrement={() => handleAddToCart(foodItem)}
-            handleDecrement={handleDecrement}
+            handleDecrement={() => handleDecrement(foodItem.id)}
             handleDelete={handleDelete}
             handleSumDecrement={handleSumDecrement}
             handleSumIncrement={handleSumIncrement}

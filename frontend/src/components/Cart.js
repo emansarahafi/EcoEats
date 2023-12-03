@@ -1,40 +1,16 @@
 import React from "react";
-import FoodCardItem from "./FoodCardItem";
 
-const Cart = ({
-  selectedItems,
-  handleIncrement,
-  handleDecrement,
-  handleDelete,
-  handleSumDecrement,
-  handleSumIncrement,
-  handleSumDelete,
-  sum,
-}) => {
+const Cart = ({ selectedItems }) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+    <div>
+      <h2>Shopping Cart</h2>
+      <ul>
         {selectedItems.map((item) => (
-          <FoodCardItem
-            key={item.id}
-            foodItem={item}
-            handleIncrement={handleIncrement}
-            handleDecrement={handleDecrement}
-            handleDelete={handleDelete}
-            handleSumDecrement={handleSumDecrement}
-            handleSumIncrement={handleSumIncrement}
-            sum={sum}
-            handleSumDelete={handleSumDelete}
-          />
+          <li key={item.id}>
+            {item.name} - Quantity: {item.qte} - Price: {item.price} $
+          </li>
         ))}
-      </div>
-      <div style={{ textAlign: "center" }}>
-        {selectedItems.length !== 0 ? (
-          <h1>Total: {sum} $</h1>
-        ) : (
-          <h1>You have no Products</h1>
-        )}
-      </div>
+      </ul>
     </div>
   );
 };
