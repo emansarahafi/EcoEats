@@ -28,6 +28,7 @@ function App() {
   };
 
   const handleDecrement = (id) => {
+    console.log("Decrementing", id);
     setRestaurant(
       restaurant.map((elt) => {
         if (elt.id === id && elt.qte > 0) {
@@ -36,7 +37,7 @@ function App() {
         return elt;
       })
     );
-  };
+  };  
 
   const handleDelete = (id) => {
     setRestaurant(restaurant.filter((elt) => elt.id !== id));
@@ -87,29 +88,33 @@ function App() {
           <Route
             path="/restaurant/:id/products"
             element={
-              <div>
-                <ListOfFoodItems
-                  restaurants={restaurants}
-                  handleIncrement={handleIncrement}
-                  handleDecrement={handleDecrement}
-                  handleDelete={handleDelete}
-                  handleSumDecrement={handleSumDecrement}
-                  handleSumIncrement={handleSumIncrement}
-                  sum={totalSum}
-                  handleSumDelete={handleSumDelete}
-                  handleAddToCart={handleAddToCart}
-                />
-                <Cart
-                  selectedItems={selectedItems}
-                  handleIncrement={handleIncrement}
-                  handleDecrement={handleDecrement}
-                  handleDelete={handleDelete}
-                  handleSumIncrement={handleSumIncrement}
-                  handleSumDecrement={handleSumDecrement}
-                  handleSumDelete={handleSumDelete}
-                  sum={totalSum}
-                />
-              </div>
+              <ListOfFoodItems
+                restaurants={restaurants}
+                handleIncrement={handleIncrement}
+                handleDecrement={handleDecrement}
+                handleDelete={handleDelete}
+                handleSumDecrement={handleSumDecrement}
+                handleSumIncrement={handleSumIncrement}
+                sum={totalSum}
+                handleSumDelete={handleSumDelete}
+                handleAddToCart={handleAddToCart}
+              />
+            }
+          />
+          {/* Add a separate route for the Cart */}
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                selectedItems={selectedItems}
+                handleIncrement={handleIncrement}
+                handleDecrement={handleDecrement}
+                handleDelete={handleDelete}
+                handleSumIncrement={handleSumIncrement}
+                handleSumDecrement={handleSumDecrement}
+                handleSumDelete={handleSumDelete}
+                sum={totalSum}
+              />
             }
           />
         </Routes>
