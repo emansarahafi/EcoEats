@@ -42,6 +42,11 @@ const FoodCardItem = ({
     handleDelete(foodItem.id);
     handleSumDelete(foodItem);
   };
+  const AddToCard=()=>{
+    if (foodItem.qte > 0) {
+      handleDecrement(foodItem.id);
+      handleSumDecrement(foodItem.price);
+  }
 
   return (
     <Card style={{ width: "18rem", marginTop: "60px" }}>
@@ -73,6 +78,7 @@ const FoodCardItem = ({
             -
           </Button>
         </div>
+        <Button variant="contained" onClick={AddToCard} >AddTocard</Button>
       </Card.Body>
     </Card>
   );
