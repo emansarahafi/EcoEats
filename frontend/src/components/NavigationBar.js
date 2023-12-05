@@ -5,50 +5,46 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faShoppingCart, faHeadset } from "@fortawesome/free-solid-svg-icons";
+import Badge from 'react-bootstrap/Badge';
+
 
 export default function NavigationBar() {
-  const linkStyle = {
-    textDecoration: "none",
-    fontSize: "20px",
-    color: "white",
-    borderRight: "1px solid white",
-    padding: "15px",
-    marginLeft: "100px",
-  };
-
-  const iconStyle = {
-    fontSize: "20px",
-    marginRight: "5px",
-  };
-
-  const navbarStyle = {
-    backgroundColor: "orange", // Set the background color to orange
-  };
+ 
 
   return (
-    <Navbar style={navbarStyle}>
+    <Navbar >
       <Container>
         <Navbar.Brand href="/">Navbar</Navbar.Brand>
-        <Nav className="ml-auto">
+        {/* <Nav className="ml-auto"> */}
+        <Nav
+          className="me-auto"
+          style={{
+            display: "flex",
+            padding: "14px 20px",
+            //  justifyContent : "space-around",
+            width: "100%",
+            
+          }}
+        >
           <Nav.Link>
             <NavLink
               to="/notifications"
               style={({ isActive }) => {
                 return {
-                  ...linkStyle,
+                  
                   fontWeight: isActive ? "bold" : "",
                   fontSize: isActive ? "25px" : "20px",
                 };
               }}
             >
-              <FontAwesomeIcon icon={faBell} style={iconStyle} />
+              <FontAwesomeIcon icon={faBell}  />
             </NavLink>
           </Nav.Link>
 
           <Nav.Link>
-            <Link to="/cart" style={linkStyle}>
-              <FontAwesomeIcon icon={faShoppingCart} style={iconStyle} />
-            </Link>
+            <NavLink to="/cart"  >
+              <FontAwesomeIcon icon={faShoppingCart}  />  <Badge bg="danger">1</Badge>
+            </NavLink>
           </Nav.Link>
 
           {/* New NavLink for customer service */}
@@ -57,27 +53,21 @@ export default function NavigationBar() {
               to="/customers"
               style={({ isActive }) => {
                 return {
-                  ...linkStyle,
+               
                   fontWeight: isActive ? "bold" : "",
                   fontSize: isActive ? "25px" : "20px",
                 };
               }}
             >
-              <FontAwesomeIcon icon={faHeadset} style={iconStyle} />
+              <FontAwesomeIcon icon={faHeadset}  />
             </NavLink>
           </Nav.Link>
 
           <Nav.Link>
             <Link
+            Style={{}}
               to="/signUp"
-              style={{
-                ...linkStyle,
-                borderRight: "none",
-                border: "3px solid grey",
-                borderRadius: "10px",
-                marginLeft: "190px",
-                padding: "8px",
-              }}
+              
             >
               SignUp/In
             </Link>
