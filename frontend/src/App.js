@@ -17,27 +17,21 @@ function App() {
   const [totalSum, setTotalSum] = useState(0);
 
   const handleIncrement = (id) => {
-    setRestaurant(
-      restaurant.map((elt) => {
-        if (elt.id === id) {
-          return { ...elt, qte: elt.qte + 1 };
-        }
-        return elt;
-      })
+    setRestaurant((prevRestaurant) =>
+      prevRestaurant.map((elt) =>
+        elt.id === id ? { ...elt, qte: elt.qte + 1 } : elt
+      )
     );
   };
-
+  
   const handleDecrement = (id) => {
-    console.log("Decrementing", id);
-    setRestaurant(
-      restaurant.map((elt) => {
-        if (elt.id === id && elt.qte > 0) {
-          return { ...elt, qte: elt.qte - 1 };
-        }
-        return elt;
-      })
+    setRestaurant((prevRestaurant) =>
+      prevRestaurant.map((elt) =>
+        elt.id === id && elt.qte > 0 ? { ...elt, qte: elt.qte - 1 } : elt
+      )
     );
-  };  
+  };
+   
 
   const handleDelete = (id) => {
     setRestaurant(restaurant.filter((elt) => elt.id !== id));
