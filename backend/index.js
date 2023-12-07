@@ -1,8 +1,11 @@
 const express = require("express");
 const userRoute = require("./Routes/userRoute");
-const productRoute = require("./Routes/productRoute"); 
+const productRoute = require("./Routes/productRoute");
+const customerServiceRoute = require("./Routes/customerServiceRoute");
+const orderRoute = require("./Routes/orderRoute");
+const restaurantRoute = require("./Routes/restaurantRoute");
 const connectDb = require('./Configuration/connectDb');
-var cors = require('cors');
+const cors = require('cors');
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
@@ -14,11 +17,14 @@ app.listen(port, (er) => {
     if (er) {
         console.log(er);
     } else {
-        console.log(`server is running on port ${port}`);
+        console.log(`Server is running on port ${port}`);
     }
 });
 
 app.use(express.json());
-app.use("/api", userRoute); 
-app.use("/api/products", productRoute); 
+app.use("/api/users", userRoute);
+app.use("/api/products", productRoute);
+app.use("/api/customer-services", customerServiceRoute);
+app.use("/api/orders", orderRoute);
+app.use("/api/restaurants", restaurantRoute);
 app.use('/uploads', express.static('uploads'));

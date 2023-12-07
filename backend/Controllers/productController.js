@@ -3,8 +3,7 @@ const Product = require("../models/Product");
 // Get all products
 const getProducts = async (request, response) => {
   try {
-    const products = await Product.find();
-    console.log(products);
+    const products = await Product.find().populate('restaurant');
     response.status(200).json({ products: products });
   } catch (error) {
     response.status(500).json({ msg: "Error on getting products" });
@@ -15,7 +14,7 @@ const getProducts = async (request, response) => {
 const getOneProduct = async (req, res) => {
   const id = req.params.id;
   try {
-    const foundProduct = await Product.findById(id);
+    const foundProduct = await Product.findById(id).populate('restaurant');
     if (foundProduct) {
       res.status(200).json({ product: foundProduct });
     } else {
@@ -29,26 +28,20 @@ const getOneProduct = async (req, res) => {
 // Post one product
 const postProduct = async (req, res) => {
   try {
-    // Access the uploaded file via req.file
-    const file = req.file;
-    // The text fields (name, description, brand, rating, price, qte, image) are sent as part of the form data
-    const { name, description, brand, rating, price, qte, image } = req.body;
-    if (!file) {
-      return res.status(400).send("No file uploaded.");
-    }
-    // Create a new product instance with both the file details and text data
+    const { name, description, rating, price, qte, image, restaurantId } = req.body;
+
     const newProduct = new Product({
       name: name,
       description: description,
-      brand: brand,
       rating: rating,
       price: price,
       qte: qte,
       image: image,
+      restaurant: restaurantId,
     });
-    // Save the product to the database
+
     await newProduct.save();
-    // Send back the newly created product data
+
     res.status(201).json(newProduct);
   } catch (error) {
     console.error(error);
@@ -60,7 +53,6 @@ const postProduct = async (req, res) => {
 const putProduct = async (req, res) => {
   const id = req.params.id;
   const product = req.body;
-  console.log(product);
   try {
     await Product.findByIdAndUpdate(id, product);
     res.status(200).json({ msg: "Update success" });

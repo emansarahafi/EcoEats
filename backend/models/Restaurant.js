@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const productSchema = new Schema({
+const restaurantSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -14,25 +14,16 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
-  price: {
-    type: Number,
-    required: true,
-  },
-  qte: {
-    type: Number,
-    required: true,
-  },
-  image: {
+  logo: {
     type: String,
     required: true,
   },
-  restaurant: {
+  products: [{
     type: Schema.Types.ObjectId,
-    ref: 'Restaurant',
-    required: true,
-  },
+    ref: 'Product',
+  }],
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
-module.exports = Product;
+module.exports = Restaurant;
