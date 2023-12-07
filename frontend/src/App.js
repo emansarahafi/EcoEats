@@ -12,48 +12,40 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 
 function App() {
-  const [restaurant, setRestaurant] = useState(restaurants);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [totalSum, setTotalSum] = useState(0);
 
   const handleIncrement = (id) => {
-    setRestaurant((prevRestaurant) =>
-      prevRestaurant.map((elt) =>
-        elt.id === id ? { ...elt, qte: elt.qte + 1 } : elt
-      )
-    );
+    const item = selectedItems.find(product => product.id === id);
+    if (!!item) {
+      const newItems = selectedItems.filter(product => product.id !== id);
+      setSelectedItems([...newItems, {...item, qte: item.qte + 1 }]);
+    }
   };
   
   const handleDecrement = (id) => {
-    setRestaurant((prevRestaurant) =>
-      prevRestaurant.map((elt) =>
-        elt.id === id && elt.qte > 0 ? { ...elt, qte: elt.qte - 1 } : elt
-      )
-    );
-  };
-   
-
-  const handleDelete = (id) => {
-    setRestaurant(restaurant.filter((elt) => elt.id !== id));
-  };
-
-  const handleSumIncrement = (price) => {
-    setTotalSum((prevSum) => prevSum + price);
-  };
-
-  const handleSumDecrement = (article) => {
-    if (article.qte > 0) {
-      setTotalSum((prevSum) => prevSum - article.price);
+    const item = selectedItems.find(product => product.id === id);
+    if (!!item && item.qte > 0) {
+      const newItems = selectedItems.filter(product => product.id !== id);
+      setSelectedItems([...newItems, {...item, qte: item.qte - 1 }]);
     }
   };
 
-  const handleSumDelete = (article) => {
-    setTotalSum((prevSum) => prevSum - article.price * article.qte);
+  const handleAddToCart = (item) => {
+    const oldItem = selectedItems.find(product => product.id === item.id);
+    if (!oldItem) {
+      setSelectedItems([...selectedItems, {...item, qte: 1 }]);
+    }
+    else {
+      const newItems = selectedItems.filter(product => product.id !== item.id);
+      setSelectedItems([...newItems, {...oldItem, qte: oldItem.qte + 1 }]);
+    }
   };
 
-  const handleAddToCart = (item) => {
-    setSelectedItems([...selectedItems, item]);
-  };
+  const getItemsCount = () => {
+    return selectedItems.reduce((acc, current) => {
+      return acc + current.qte;
+    }, 0);
+  } 
 
   return (
     <div
@@ -61,10 +53,9 @@ function App() {
         backgroundImage: 'url("your-background-image-url")', // Add your background image URL
         backgroundSize: "cover",
         minHeight: "100vh",
-      }}
-    >
+      }}>
       <BrowserRouter>
-        <NavigationBar />
+        <NavigationBar cartItemsCount={getItemsCount()}/>
         <Routes>
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
@@ -72,25 +63,13 @@ function App() {
           <Route path="/customers" element={<CustomerServiceForm />} />
           <Route
             path="/"
-            element={
-              <ListOfRestaurants
-                restaurants={restaurant}
-                handleAddToCart={handleAddToCart}
-              />
-            }
+            element={<ListOfRestaurants restaurants={restaurants}/>}
           />
           <Route
             path="/restaurant/:id/products"
             element={
               <ListOfFoodItems
                 restaurants={restaurants}
-                handleIncrement={handleIncrement}
-                handleDecrement={handleDecrement}
-                handleDelete={handleDelete}
-                handleSumDecrement={handleSumDecrement}
-                handleSumIncrement={handleSumIncrement}
-                sum={totalSum}
-                handleSumDelete={handleSumDelete}
                 handleAddToCart={handleAddToCart}
               />
             }
@@ -103,11 +82,6 @@ function App() {
                 selectedItems={selectedItems}
                 handleIncrement={handleIncrement}
                 handleDecrement={handleDecrement}
-                handleDelete={handleDelete}
-                handleSumIncrement={handleSumIncrement}
-                handleSumDecrement={handleSumDecrement}
-                handleSumDelete={handleSumDelete}
-                sum={totalSum}
               />
             }
           />

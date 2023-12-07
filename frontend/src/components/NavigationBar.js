@@ -8,7 +8,7 @@ import { faBell, faShoppingCart, faHeadset } from "@fortawesome/free-solid-svg-i
 import Badge from 'react-bootstrap/Badge';
 
 
-export default function NavigationBar() {
+export default function NavigationBar({cartItemsCount}) {
  
 
   return (
@@ -43,7 +43,7 @@ export default function NavigationBar() {
 
           <Nav.Link>
             <NavLink to="/cart"  >
-              <FontAwesomeIcon icon={faShoppingCart}  />  <Badge bg="danger">1</Badge>
+              <FontAwesomeIcon icon={faShoppingCart}  />  <Badge bg="danger">{cartItemsCount ?? 0}</Badge>
             </NavLink>
           </Nav.Link>
 

@@ -4,10 +4,9 @@ import Card from "react-bootstrap/Card";
 
 const FoodCardItem = ({
   foodItem,
-  handleIncrement,
-  handleDecrement,
   handleAddToCart,
 }) => {
+
   const stars = [...Array(5)].map((_, i) => (
     <span
       key={i}
@@ -20,25 +19,6 @@ const FoodCardItem = ({
       ★
     </span>
   ));
-
-  const increment = () => {
-    handleIncrement(foodItem.id);
-  };
-
-  const decrement = () => {
-    if (foodItem.qte > 0) {
-      handleDecrement(foodItem.id);
-    }
-  };
-
-  const addToCart = () => {
-    handleAddToCart(foodItem.id, foodItem.qte);
-  };
-  const AddToCard=()=>{
-    if (foodItem.qte > 0) {
-      handleDecrement(foodItem.id);
-      handleSumDecrement(foodItem.price);
-  }
 
   return (
     <Card style={{ width: "18rem", marginTop: "60px" }}>
@@ -61,14 +41,10 @@ const FoodCardItem = ({
           <Card.Text>{foodItem && foodItem.price} $</Card.Text>
         </div>
         <span>{stars}</span>
-        <div style={{ display: "flex", gap: "10px" }}>
-          <Button variant="success" onClick={increment}>
-            +
-          </Button>
-          <span>{foodItem && foodItem.qte}</span>
-          <Button variant="primary" onClick={decrement}>
-            -
-          </Button>
+        <div>
+            <Button onClick={() => handleAddToCart(foodItem)}>
+                Add To Cart
+            </Button>
         </div>
       </Card.Body>
     </Card>

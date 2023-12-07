@@ -5,14 +5,6 @@ import { useParams } from "react-router-dom";
 
 const ListOfFoodItems = ({
   restaurants,
-  handleIncrement,
-  handleDecrement,
-  handleDelete,
-  handleSumDecrement,
-  handleSumIncrement,
-  handleSumDelete,
-  sum,
-  selectedItems,
   handleAddToCart,
 }) => {
   const { id } = useParams();
@@ -49,13 +41,7 @@ const ListOfFoodItems = ({
           <FoodCardItem
             key={foodItem.id}
             foodItem={foodItem}
-            handleIncrement={() => handleAddToCart(foodItem)}
-            handleDecrement={() => handleDecrement(foodItem.id)}
-            handleDelete={handleDelete}
-            handleSumDecrement={handleSumDecrement}
-            handleSumIncrement={handleSumIncrement}
-            sum={sum}
-            handleSumDelete={handleSumDelete}
+            handleAddToCart={handleAddToCart}
           />
         ))}
       </div>
