@@ -26,6 +26,11 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  availability: {
+    type: Boolean,
+    required: true,
+    default: true, // Set a default value if needed
+  },
   restaurant: {
     type: Schema.Types.ObjectId,
     ref: 'Restaurant',
