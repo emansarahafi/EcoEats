@@ -18,6 +18,14 @@ const restaurantSchema = new Schema({
     type: String,
     required: true,
   },
+  foundingDate: {
+    type: Date,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
   products: [{
     type: Schema.Types.ObjectId,
     ref: 'Product',
