@@ -48,7 +48,7 @@ function SignIn() {
                             />
                             <MDBBtn className="mb-4 w-100 gradient-custom-4" size="lg" type="submit"> Sign In </MDBBtn>
                             <div className="text-center">
-                                <p className="mb-0">Forgot your password? <Link to="/signIn">reset password</Link></p>
+                                <p className="mb-0">Forgot your password? <Link to="/resetPassword">reset password</Link></p>
                             </div>
                         </form>
                     </MDBCardBody>

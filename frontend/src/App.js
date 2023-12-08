@@ -10,7 +10,6 @@ import Notifications from "./components/Notifications";
 import CustomerServiceForm from "./components/CustomerServiceForm";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
-import Checkout from './components/Checkout';
 
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -60,10 +59,10 @@ function App() {
         <Routes>
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
+          <Route path="/resetPassword" element={<PasswordReset />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/customers" element={<CustomerServiceForm />} />
-          <Route path="/Checkout" element={
-          <Checkout selectedItems={selectedItems}/>} />
           <Route
             path="/"
             element={<ListOfRestaurants restaurants={restaurants}/>}
