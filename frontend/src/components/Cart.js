@@ -1,12 +1,18 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import { useNavigate} from 'react-router-dom';
 
 const Cart = ({ selectedItems, handleIncrement, handleDecrement }) => {
   const getTotal = () => {
     return selectedItems.reduce((acc, item) => {
       return acc + item.price * item.qte;
     }, 0);
-  }
+  };
+  const navigate = useNavigate();
+  const NavigateCheckout=()=>{
+
+      navigate('/Checkout')
+  };
   return (
     <div>
       <h2>Shopping Cart</h2>
@@ -33,7 +39,7 @@ const Cart = ({ selectedItems, handleIncrement, handleDecrement }) => {
       <div>
         Total price: {getTotal()}
       </div>
-      <Button variant="primary" onClick={() => {}}>
+      <Button variant="primary" onClick={NavigateCheckout}>
           Checkout
       </Button>
     </div>
