@@ -12,6 +12,8 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import PasswordReset from "./components/PasswordReset";
 import Profile from "./components/Profile";
+import ListOfForms from "./components/ListOfForms";
+import Customers from "./components/Customers";
 
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -65,6 +67,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/customers" element={<CustomerServiceForm />} />
+          <Route path="/customerServices" element={<ListOfForms />} />
+          <Route path="/users" element={<Customers />} />
           <Route
             path="/"
             element={<ListOfRestaurants restaurants={restaurants}/>}
