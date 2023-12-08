@@ -103,21 +103,10 @@ function Checkout({selectedItems}) {
           <div className="p-3" style={{ backgroundColor: "#eee" }}>
             <span className="fw-bold">Order Recap</span>
            {selectedItems.map(item=> (
-            
             <div className="d-flex justify-content-between mt-2">
               <span>{item.name}</span> <span>{item.qte}</span> <span>${item.price}</span>
             </div>
-            
-            
-            
             ))}
-
-
-
-            
-            
-            
-            
             <hr />
             <div className="d-flex justify-content-between mt-2">
               <span>Total </span> <span class="text-success">${getTotal()}</span>
