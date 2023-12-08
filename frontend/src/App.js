@@ -16,6 +16,7 @@ import ListOfForms from "./components/ListOfForms";
 import Customers from "./components/Customers";
 import RestaurantCardItem from "./components/RestaurantCardItem";
 import RestaurantDetails from "./components/RestaurantDetails";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -76,10 +77,32 @@ function App() {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/resetPassword" element={<PasswordReset />} />
           <Route path="/profile" element={<Profile />} />
+          <Route 
+            path="/profile" 
+            element={
+              <PrivateRoute allowedRoles={['user']}>
+                <Profile/>
+              </PrivateRoute>
+            }
+          />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/customers" element={<CustomerServiceForm />} />
-          <Route path="/customerServices" element={<ListOfForms />} />
-          <Route path="/users" element={<Customers />} />
+          <Route 
+            path="/customerServices" 
+            element={
+              <PrivateRoute allowedRoles={['admin']}>
+                <ListOfForms/>
+              </PrivateRoute>
+            }
+          />
+          <Route 
+            path="/users" 
+            element={
+              <PrivateRoute allowedRoles={['admin']}>
+                <Customers/>
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/"
             element={<ListOfRestaurants restaurants={restaurants} />}
