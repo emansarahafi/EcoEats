@@ -1,0 +1,48 @@
+.profile-container { width: 100%;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    margin-top: 50px;
+    font-family: 'Arial', sans-serif; 
+}
+    
+.profile-card {
+    width: 20rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+    
+.profile-card img {
+    max-height: 200px; 
+    object-fit: cover; 
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px;
+}
+   
+.user-detail {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.user-detail h6, .user-detail .card-text { 
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+    
+.user-detail h6{
+    font-weight: bold;
+}
+    
+.update-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+    
+.welcome-back {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
