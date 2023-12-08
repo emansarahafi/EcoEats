@@ -1,93 +1,137 @@
 import React, { useState, useEffect } from "react";
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from "mdb-react-ui-kit";
 import axios from "axios";
+import Accordion from "react-bootstrap/Accordion";
+import Button from "react-bootstrap/Button";
 
 function ListOfForms() {
-  const url = "http://localhost:8088/api/customer-service";
-  const [customerInquiry, setCustomerInquiry] = useState({ userId: "", name: "", email: "", inquiry: "", status: "Open" });
-  const [users, setUsers] = useState([]);
-  const [customerServices, setCustomerServices] = useState([]);
+  const url = "http://localhost:8022/api/forms";
+  const [forms, setForms] = useState([]);
 
   useEffect(() => {
-    // Fetch users and customer services when the component mounts
-    axios.get("http://localhost:8022/api/users")
-      .then((response) => {
-        setUsers(response.data.users);
-      })
-      .catch((error) => {
-        console.error("Error fetching users:", error);
-      });
-
-    axios.get(url)
-      .then((response) => {
-        setCustomerServices(response.data.customerServices);
-      })
-      .catch((error) => {
-        console.error("Error fetching customer services:", error);
-      });
+    fetchForms();
   }, []);
 
-  const handleChange = (e) => {
-    setCustomerInquiry({ ...customerInquiry, [e.target.id]: e.target.value });
+  const fetchForms = async () => {
+    try {
+      const response = await axios.get(url);
+      setForms(response.data.forms);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios.post(url, customerInquiry)
-      .then((response) => {
-        console.log(response.data);
-        // Handle response...
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+  const handleDeleteForm = (formId) => {
+    if (window.confirm("Are you sure you want to delete this form?")) {
+      const token = localStorage.getItem("token");
+      console.log(token);
+
+      if (token) {
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        axios
+          .delete(`${url}/${formId}`, { headers })
+          .then(() => {
+            setForms(forms.filter((form) => form._id !== formId));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }
   };
 
-  const handleStatusChange = (customerId, newStatus) => {
-    axios.put(`${url}/${customerId}`, { status: newStatus })
-      .then((response) => {
-        // Update the customer services state or handle the response as needed
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error updating the status:", error);
-      });
+  const handleStatusChange = (formId, newStatus) => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+
+    if (token) {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      axios
+        .put(`${url}/${formId}/status`, { status: newStatus }, { headers })
+        .then((response) => {
+          const updatedForms = forms.map((form) =>
+            form._id === formId ? { ...form, status: newStatus } : form
+          );
+          setForms(updatedForms);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
-    <div style={{ height: '100vh', width: '100vw', backgroundImage: "url(https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp)", backgroundSize: 'cover', backgroundPosition: 'center center' }}>
-      <MDBContainer fluid className="d-flex align-items-center justify-content-center bg-image">
-        <div className="mask gradient-custom-3"></div>
-        <MDBCard className="m-5" style={{ maxWidth: "600px" }}>
-          <MDBCardBody className="px-5">
-            <h2 className="text-uppercase text-center mb-5">Customer Service Inquiry</h2>
-            <form onSubmit={handleSubmit}>
-              {/* ... other form fields ... */}
-              <MDBBtn className="mb-4 w-100 gradient-custom-4" size="lg" type="submit">
-                Submit Inquiry
-              </MDBBtn>
-            </form>
-          </MDBCardBody>
-        </MDBCard>
-
-        {/* Display existing customer services with status modification button */}
-        <div>
-          <h2>Existing Customer Services</h2>
-          {customerServices.map((service) => (
-            <div key={service._id}>
-              <p>{service.inquiry}</p>
-              <p>Status: {service.status}</p>
-              {/* Add a button to change the status */}
-              <button onClick={() => handleStatusChange(service._id, "In Progress")}>
-                Mark as In Progress
-              </button>
-              <button onClick={() => handleStatusChange(service._id, "Closed")}>
-                Mark as Closed
-              </button>
-            </div>
-          ))}
-        </div>
-      </MDBContainer>
+    <div style={{ width: "80%", margin: "auto", marginTop: "40px" }}>
+      {forms.map((form) => (
+        <Accordion key={form._id}>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header
+              style={{
+                backgroundColor: "lightgrey",
+                color: "white",
+                fontWeight: "bold",
+                padding: "10px 10px",
+                borderBottom: "1px solid #e3e3e3",
+                cursor: "pointer",
+              }}
+            >
+              {form.name.toUpperCase()}
+            </Accordion.Header>
+            <Accordion.Body
+              style={{
+                padding: "15px",
+                fontSize: "16px",
+                lineHeight: "1.5",
+                color: "#333",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <div>
+                <h5 style={{ marginBottom: "10px", color: "#555" }}>
+                  Email: {form.email}
+                </h5>
+                <h5>Status: {form.status}</h5>
+              </div>
+              <div>
+                <Button
+                  style={{ marginRight: "10px" }}
+                  variant="success"
+                  onClick={() => handleStatusChange(form._id, "Open")}
+                >
+                  Open
+                </Button>
+                <Button
+                  style={{ marginRight: "10px" }}
+                  variant="warning"
+                  onClick={() => handleStatusChange(form._id, "In Progress")}
+                >
+                  In Progress
+                </Button>
+                <Button
+                  variant="info"
+                  onClick={() => handleStatusChange(form._id, "Closed")}
+                >
+                  Closed
+                </Button>
+                <Button
+                  style={{ marginLeft: "10px" }}
+                  variant="danger"
+                  onClick={() => handleDeleteForm(form._id)}
+                >
+                  Delete
+                </Button>
+              </div>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      ))}
     </div>
   );
 }
