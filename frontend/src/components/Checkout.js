@@ -8,15 +8,11 @@ import {
   } from "mdb-react-ui-kit";
  
 function Checkout({selectedItems}) {
-    
-        const getTotal = () => {
-            
-            
-        
-            return selectedItems.reduce((acc, item) => {
-              return acc + item.price * item.qte;
-            }, 0);
-          };
+  const getTotal = () => {
+    return selectedItems.reduce((acc, item) => {
+        return acc + item.price * item.qte;
+    }, 0);
+  };
     
   return (
     <MDBContainer className="py-5">
