@@ -77,7 +77,6 @@ function Checkout({selectedItems}) {
                     <span>**** 5436</span>
                   </div>
                 </label>
-
                 <input
                   type="radio"
                   className="btn-check"
