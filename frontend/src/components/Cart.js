@@ -12,7 +12,7 @@ const Cart = ({ selectedItems, handleIncrement, handleDecrement }) => {
   const navigate = useNavigate();
   const NavigateCheckout=()=>{
 
-      navigate('/Checkout')
+      navigate('/checkout')
   };
   return (
     <div>
