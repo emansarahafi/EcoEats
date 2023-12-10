@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
 //get all users
-const getUsers = async (requset, response) => { 
+const getUsers = async (request, response) => { 
     try {
         const users = await User.find(); 
         console.log(users); 
