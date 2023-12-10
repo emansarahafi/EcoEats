@@ -2,6 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate} from 'react-router-dom';
 
+
 const Cart = ({ selectedItems, handleIncrement, handleDecrement }) => {
   const getTotal = () => {
     return selectedItems.reduce((acc, item) => {
@@ -11,7 +12,7 @@ const Cart = ({ selectedItems, handleIncrement, handleDecrement }) => {
   const navigate = useNavigate();
   const NavigateCheckout=()=>{
 
-      navigate('/Checkout')
+      navigate('/checkout')
   };
   return (
     <div>

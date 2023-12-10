@@ -3,7 +3,7 @@ import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from "mdb-react-
 import axios from "axios";
 
 function CustomerServiceForm() {
-    const url = "http://localhost:8088/api/customer-service"; // Update the API endpoint for customer service
+    const url = "http://localhost:8022/api/forms"; // Update the API endpoint for customer service
     const [customerInquiry, setCustomerInquiry] = useState({ name: "", email: "", inquiry: "" });
 
     const handleChange = (e) => {

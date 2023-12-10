@@ -5,6 +5,8 @@ export const restaurants = [
     description: "A fantastic restaurant",
     rating: 4,
     logo: "logo192.png",
+    address: "123 Main St, Cityville",
+    foundingDate: "2020-01-15",
     products: [
       {
         id: 0,
@@ -32,6 +34,8 @@ export const restaurants = [
     description: "Delicious food in a cozy atmosphere",
     rating: 5,
     logo: "logo192.png",
+    address: "456 Oak St, Townsville",
+    foundingDate: "2018-05-20",
     products: [
       {
         id: 1,

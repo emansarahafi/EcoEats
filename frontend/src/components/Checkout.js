@@ -8,15 +8,11 @@ import {
   } from "mdb-react-ui-kit";
  
 function Checkout({selectedItems}) {
-    
-        const getTotal = () => {
-            
-            
-        
-            return selectedItems.reduce((acc, item) => {
-              return acc + item.price * item.qte;
-            }, 0);
-          };
+  const getTotal = () => {
+    return selectedItems.reduce((acc, item) => {
+        return acc + item.price * item.qte;
+    }, 0);
+  };
     
   return (
     <MDBContainer className="py-5">
@@ -81,7 +77,6 @@ function Checkout({selectedItems}) {
                     <span>**** 5436</span>
                   </div>
                 </label>
-
                 <input
                   type="radio"
                   className="btn-check"
@@ -107,21 +102,10 @@ function Checkout({selectedItems}) {
           <div className="p-3" style={{ backgroundColor: "#eee" }}>
             <span className="fw-bold">Order Recap</span>
            {selectedItems.map(item=> (
-            
             <div className="d-flex justify-content-between mt-2">
               <span>{item.name}</span> <span>{item.qte}</span> <span>${item.price}</span>
             </div>
-            
-            
-            
             ))}
-
-
-
-            
-            
-            
-            
             <hr />
             <div className="d-flex justify-content-between mt-2">
               <span>Total </span> <span class="text-success">${getTotal()}</span>
