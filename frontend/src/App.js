@@ -11,7 +11,8 @@ import CustomerServiceForm from "./components/CustomerServiceForm";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Checkout from "./components/Checkout";
-
+import Profile from "./components/Profile";
+import PasswordReset from "./components/PasswordReset";
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
 
