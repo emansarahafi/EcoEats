@@ -43,7 +43,7 @@ function SignUp() {
       .then((response) => {
         console.log(response.data);
         alert(response.data.msg);
-        navigate("/SignIn");
+        navigate("/signIn");
       })
       .catch((error) => {
         alert(error.response.data.msg);
