@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function PasswordReset() {
-  const url = "http://localhost:8088/api/users/reset-password"; // Update the URL for password reset
+  const url = "http://localhost:8022/api/users/reset-password"; // Update the URL for password reset
   const [user, setUser] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
