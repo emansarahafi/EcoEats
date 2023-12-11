@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SignUp() {
-  const url = "http://localhost:8022/api/users";
+  const url = "http://localhost:8022/api/users/uploads";
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
