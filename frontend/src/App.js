@@ -18,6 +18,8 @@ import RestaurantCardItem from "./components/RestaurantCardItem";
 import RestaurantDetails from "./components/RestaurantDetails";
 import PrivateRoute from "./components/PrivateRoute";
 import Checkout from "./components/Checkout";
+import Profile from "./components/Profile";
+import PasswordReset from "./components/PasswordReset";
 function App() {
   const [selectedItems, setSelectedItems] = useState([]);
 

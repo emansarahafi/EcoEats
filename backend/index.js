@@ -22,9 +22,9 @@ app.listen(port, (er) => {
 });
 
 app.use(express.json());
-app.use("/api/users", userRoute);
-app.use("/api/products", productRoute);
-app.use("/api/customer-services", customerServiceRoute);
-app.use("/api/orders", orderRoute);
-app.use("/api/restaurants", restaurantRoute);
+app.use("/api", userRoute);
+app.use("/api", productRoute);
+app.use("/api", customerServiceRoute);
+app.use("/api", orderRoute);
+app.use("/api", restaurantRoute);
 app.use('/uploads', express.static('uploads'));
