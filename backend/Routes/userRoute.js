@@ -10,10 +10,12 @@ const {
     postUserProfile,
     signIn
 } = require("../Controllers/userController"); 
-const isAuth = require("../middleware/isAuth")
-const isAutho = require('../middleware/isAutho')
+const isAuth = require("../middleware/isAuth");
+const isAutho = require('../middleware/isAutho');
+const User = require("../models/User"); // Add this line to import the User model
+
 userRoute.get("/users", getUsers);
-userRoute.get("/users/:id", isAuth,isAutho(['user']), getOneUser);
+userRoute.get("/users/:id", isAuth, isAutho(['user']), getOneUser);
 userRoute.post("/users/uploads", upload.single('file'), postUser); 
 userRoute.put("/users/:id", putUser); 
 userRoute.delete("/users/:id", isAuth, async (req, res) => {
@@ -41,6 +43,5 @@ userRoute.delete("/users/:id", isAuth, async (req, res) => {
     }
   });
    
-
 userRoute.post("/signIn", signIn);
 module.exports = userRoute;

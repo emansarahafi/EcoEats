@@ -31,13 +31,18 @@ const getOneUser = async (req, res) => {
 // Post one user
 const postUser = async (req, res) => {
     try {
-        const file = req.file;
-        const { userName, email, dob, phoneNumber, address, password } = req.body;
+        let profileImagePath = null; // Set default value to null
 
-        if (!file) {
-            return res.status(400).send('No file uploaded.');
+        // Check if a file was uploaded
+        if (req.file) {
+            // If a file was uploaded, save the file path
+            // You can save the file path to the 'profileImagePath' field in your user schema
+            // Modify this line based on your schema structure
+            profileImagePath = req.file.path;
         }
 
+        // Proceed with saving other user information (including optional file path)
+        const { userName, email, dob, phoneNumber, address, password } = req.body;
         const newUser = new User({
             userName: userName,
             email: email,
@@ -45,7 +50,7 @@ const postUser = async (req, res) => {
             phoneNumber: phoneNumber,
             address: address,
             password: password,
-            profileImagePath: file.path,
+            profileImagePath: profileImagePath, // Include the file path if it exists
         });
 
         await newUser.save();
@@ -55,6 +60,7 @@ const postUser = async (req, res) => {
         res.status(500).send('Server error while creating user.');
     }
 };
+
 
 // Update one user
 const putUser = async (req, res) => {
