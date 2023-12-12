@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SignIn() {
-    const url = "http://localhost:8022/api/users";
+    const url = "http://localhost:8022/api/signIn";
     const navigate=useNavigate()
     const [user, setUser] = useState({ email: "", password: "" });
     const handleChange = (e) => {
