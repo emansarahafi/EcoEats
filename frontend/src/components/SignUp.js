@@ -42,7 +42,7 @@ function SignUp() {
       .post(url, formData)
       .then((response) => {
         console.log(response.data);
-        alert(response.data.msg);
+        alert("Welcome to EcoEats!");
         navigate("/signIn");
       })
       .catch((error) => {

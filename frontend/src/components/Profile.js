@@ -79,7 +79,7 @@ function Profile() {
           .delete(`${url}/${userId}`, { headers })
           .then(() => {
             // Assuming your backend sends a success message
-            alert("User deleted successfully");
+            alert("User deleted successfully, please click the sign out button to confirm.");
             navigate('/');
           })
           .catch((err) => {
