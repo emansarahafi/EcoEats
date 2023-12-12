@@ -66,7 +66,7 @@ function Profile() {
     reload();
   };
 
-  const handleDelete = (userId) => {
+  const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       const token = localStorage.getItem("token");
   
@@ -87,7 +87,7 @@ function Profile() {
           });
       }
     }
-  };
+  };  
 
   return (
     <>
