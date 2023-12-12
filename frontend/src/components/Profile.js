@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import Button from 'react-bootstrap/Button';
@@ -14,6 +15,7 @@ function Profile() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const history = useNavigate();
   const [userUpdate, setUpdate] = useState({
     userName: '',
     email: '',
@@ -67,10 +69,12 @@ function Profile() {
   const handleDelete = async () => {
     try {
       await axios.delete(`${url}/${user._id}`);
+      history.push('/'); // Navigate to the home page after successful deletion
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   return (
     <>
