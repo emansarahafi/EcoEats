@@ -15,7 +15,7 @@ export default function NavigationBar({cartItemsCount}) {
   const navigate=useNavigate() 
 
   const handleSignOut = () => {
-    if (window.confirm("Are you sure you want to SignOut")){ 
+    if (window.confirm("Are you sure you want to sign out?")){ 
       localStorage.removeItem("token"); // Remove the token from local storage 
       navigate("/"); // Navigate to the home page or login page
     } 
