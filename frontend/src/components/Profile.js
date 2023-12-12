@@ -79,7 +79,8 @@ function Profile() {
           .delete(`${url}/${userId}`, { headers })
           .then(() => {
             // Assuming your backend sends a success message
-            alert("User deleted successfully, please click the sign out button to confirm.");
+            alert("User deleted successfully.");
+            localStorage.removeItem("token"); // Remove the token from local storage
             navigate('/');
           })
           .catch((err) => {
