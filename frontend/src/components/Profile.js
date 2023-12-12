@@ -69,13 +69,12 @@ function Profile() {
   const handleDelete = (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       const token = localStorage.getItem("token");
-      console.log(token);
-
+  
       if (token) {
         const headers = {
           Authorization: `Bearer ${token}`,
         };
-
+  
         axios
           .delete(`${url}/${userId}`, { headers })
           .then(() => {
@@ -89,7 +88,6 @@ function Profile() {
       }
     }
   };
-  
 
   return (
     <>
