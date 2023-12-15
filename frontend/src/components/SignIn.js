@@ -21,7 +21,7 @@ function SignIn() {
                 console.log(response.data);
                 const token = response.data.token; localStorage.setItem("token", token);
                 if(response.data.user.role==='user'){navigate('/profile');} 
-                else{navigate('/customers')}
+                else{navigate('/users')}
             })
             .catch((error) => {
             console.error("There was an error!", error); });
