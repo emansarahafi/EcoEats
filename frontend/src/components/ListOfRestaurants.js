@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RestaurantCardItem from "./RestaurantCardItem";
 import SearchBar from "./SearchBar";
 
-export default function ListOfRestaurants({ restaurants }) {
+export default function ListOfRestaurants() {
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/restaurants");
+        const data = await response.json();
+        setRestaurants(data.restaurants);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const [filteredRestaurants, setFilteredRestaurants] = useState(restaurants);
 
   const handleSearch = (query) => {

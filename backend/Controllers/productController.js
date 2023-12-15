@@ -28,6 +28,7 @@ const getOneProduct = async (req, res) => {
 // Post one product
 const postProduct = async (req, res) => {
   try {
+    console.log(req.body); // Log the request body to check its structure
     const { name, description, rating, price, qte, image, restaurantId } = req.body;
 
     const newProduct = new Product({

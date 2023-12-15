@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { restaurants } from "./components/Data";
 import ListOfRestaurants from "./components/ListOfRestaurants";
 import ListOfFoodItems from "./components/ListOfFoodItems";
 import NavigationBar from "./components/NavigationBar";
@@ -20,6 +19,22 @@ import PrivateRoute from "./components/PrivateRoute";
 import Checkout from "./components/Checkout";
 
 function App() {
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await fetch("http://localhost:8022/api/restaurants");
+        const data = await response.json();
+        setRestaurants(data.restaurants);
+      } catch (error) {
+        console.error("Error fetching restaurants:", error);
+      }
+    };
+
+    fetchRestaurants();
+  }, []);
+
   const [selectedItems, setSelectedItems] = useState([]);
 
   const handleIncrement = (id) => {

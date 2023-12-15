@@ -3,28 +3,28 @@ import FoodCardItem from "./FoodCardItem";
 import SearchBar from "./SearchBar";
 import { useParams } from "react-router-dom";
 
-const ListOfFoodItems = ({
-  restaurants,
-  handleAddToCart,
-}) => {
+const ListOfFoodItems = ({handleAddToCart}) => {
   const { id } = useParams();
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [filteredFoodItems, setFilteredFoodItems] = useState([]);
 
   useEffect(() => {
-    const restaurant = restaurants.find(
-      (restaurant) => restaurant.id === parseInt(id, 10)
-    );
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/restaurants/${id}`);
+        const data = await response.json();
+        if (data.restaurant) {
+          setSelectedRestaurant(data.restaurant);
+          setFilteredFoodItems(data.restaurant.products);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-    if (restaurant) {
-      setSelectedRestaurant(restaurant);
-      setFilteredFoodItems(restaurant.products);
-    } else {
-      setSelectedRestaurant(null);
-      setFilteredFoodItems([]);
-    }
-  }, [restaurants, id]);
+    fetchData();
+  }, [id]);
 
   const handleSearch = (query) => {
     const filtered = selectedRestaurant.products.filter((foodItem) =>
