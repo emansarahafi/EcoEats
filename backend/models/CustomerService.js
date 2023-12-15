@@ -10,7 +10,7 @@ const customerServiceSchema = new Schema({
     type: String,
     required: true,
   },
-  message: {
+  inquiry: {
     type: String,
     required: true,
   },
