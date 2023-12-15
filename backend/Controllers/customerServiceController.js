@@ -3,7 +3,7 @@ const CustomerService = require("../models/CustomerService");
 // Get all customer services
 const getCustomerServices = async (request, response) => {
   try {
-    const customerServices = await CustomerService.find().populate('user');
+    const customerServices = await CustomerService.find();
     response.status(200).json({ customerServices: customerServices });
   } catch (error) {
     response.status(500).json({ msg: "Error on getting customer services" });
@@ -14,7 +14,7 @@ const getCustomerServices = async (request, response) => {
 const getOneCustomerService = async (req, res) => {
   const id = req.params.id;
   try {
-    const foundCustomerService = await CustomerService.findById(id).populate('user');
+    const foundCustomerService = await CustomerService.findById(id);
     if (foundCustomerService) {
       res.status(200).json({ customerService: foundCustomerService });
     } else {
@@ -28,12 +28,12 @@ const getOneCustomerService = async (req, res) => {
 // Post one customer service
 const postCustomerService = async (req, res) => {
   try {
-    const { email, name, message } = req.body;
+    const { email, name, inquiry } = req.body;
 
     const newCustomerService = new CustomerService({
       email: email,
       name: name,
-      message: message,
+      inquiry: inquiry,
     });
 
     await newCustomerService.save();
