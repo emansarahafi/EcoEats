@@ -5,7 +5,7 @@ import axios from "axios";
 function CustomerServiceForm() {
     const url = "http://localhost:8022/api/customerservices"; // Update the API endpoint for customer service
     const [customerInquiry, setCustomerInquiry] = useState({ name: "", email: "", inquiry: "" });
-
+    
     const handleChange = (e) => {
         setCustomerInquiry({ ...customerInquiry, [e.target.id]: e.target.value });
     };

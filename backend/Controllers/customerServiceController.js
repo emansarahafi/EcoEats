@@ -28,10 +28,9 @@ const getOneCustomerService = async (req, res) => {
 // Post one customer service
 const postCustomerService = async (req, res) => {
   try {
-    const { user, email, name, message } = req.body;
+    const { email, name, message } = req.body;
 
     const newCustomerService = new CustomerService({
-      user: user,
       email: email,
       name: name,
       message: message,
