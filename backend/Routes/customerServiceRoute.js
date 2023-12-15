@@ -8,10 +8,10 @@ const {
   deleteCustomerService,
 } = require("../Controllers/customerServiceController");
 
-customerServiceRoute.get("/customer-services", getCustomerServices);
-customerServiceRoute.get("/customer-services/:id", getOneCustomerService);
-customerServiceRoute.post("/customer-services", postCustomerService);
-customerServiceRoute.put("/customer-services/:id", putCustomerService);
-customerServiceRoute.delete("/customer-services/:id", deleteCustomerService);
+customerServiceRoute.get("/customerservices", getCustomerServices);
+customerServiceRoute.get("/customerservices/:id", getOneCustomerService);
+customerServiceRoute.post("/customerservices", postCustomerService);
+customerServiceRoute.put("/customerservices/:id", putCustomerService);
+customerServiceRoute.delete("/customerservices/:id", deleteCustomerService);
 
 module.exports = customerServiceRoute;
