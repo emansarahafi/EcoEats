@@ -8,8 +8,8 @@ export default function ListOfRestaurants() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("api/restaurants");
-        const data = await response.text();
+        const response = await axios.get("http://localhost:8022/api/restauants");
+        const data = await response.json();
         setRestaurants(data.restaurants);
       } catch (error) {
         console.error("Error fetching data:", error);
