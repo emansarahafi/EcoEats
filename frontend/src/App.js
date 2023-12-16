@@ -81,7 +81,7 @@ function App() {
     <div
       style={{
         backgroundImage:
-          'url("your-background-image-url")', // Add your background image URL
+          '"url(https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp)"', // Add your background image URL
         backgroundSize: "cover",
         minHeight: "100vh",
       }}

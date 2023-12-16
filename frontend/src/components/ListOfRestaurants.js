@@ -8,7 +8,7 @@ export default function ListOfRestaurants() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/restaurants");
+        const response = await fetch("http://localhost:8022/api/restaurants");
         const data = await response.json();
         setRestaurants(data.restaurants);
       } catch (error) {
@@ -34,7 +34,7 @@ export default function ListOfRestaurants() {
 
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         {filteredRestaurants.map((restaurant) => (
-          <div key={restaurant.id}>
+          <div key={restaurant._id}>
             <RestaurantCardItem restaurant={restaurant} />
           </div>
         ))}

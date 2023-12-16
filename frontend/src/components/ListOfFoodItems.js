@@ -3,7 +3,7 @@ import FoodCardItem from "./FoodCardItem";
 import SearchBar from "./SearchBar";
 import { useParams } from "react-router-dom";
 
-const ListOfFoodItems = ({handleAddToCart}) => {
+const ListOfFoodItems = ({ handleAddToCart }) => {
   const { id } = useParams();
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -12,7 +12,7 @@ const ListOfFoodItems = ({handleAddToCart}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/restaurants/${id}`);
+        const response = await fetch(`http://localhost:8022/api/restaurants/${id}`);
         const data = await response.json();
         if (data.restaurant) {
           setSelectedRestaurant(data.restaurant);
@@ -39,7 +39,7 @@ const ListOfFoodItems = ({handleAddToCart}) => {
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         {filteredFoodItems.map((foodItem) => (
           <FoodCardItem
-            key={foodItem.id}
+            key={foodItem._id}
             foodItem={foodItem}
             handleAddToCart={handleAddToCart}
           />
