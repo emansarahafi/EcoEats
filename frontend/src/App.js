@@ -17,6 +17,7 @@ import RestaurantCardItem from "./components/RestaurantCardItem";
 import RestaurantDetails from "./components/RestaurantDetails";
 import PrivateRoute from "./components/PrivateRoute";
 import Checkout from "./components/Checkout";
+import axios from "axios";
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
@@ -25,7 +26,7 @@ function App() {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const response = await fetch("http://localhost:8022/api/restaurants");
+        const response = await axios.get("http://localhost:8022/api/restaurants");
         setRestaurants(response.data.restaurants);
       } catch (error) {
         console.error("Error fetching restaurants:", error);
