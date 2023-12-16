@@ -12,8 +12,8 @@ const ListOfFoodItems = ({ handleAddToCart }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8022/api/restaurants/${id}`);
-        const data = await response.json();
+        const response = await fetch(`/api/restaurants/${id}`);
+        const data = await response.text();
         if (data.restaurant) {
           setSelectedRestaurant(data.restaurant);
           setFilteredFoodItems(data.restaurant.products);

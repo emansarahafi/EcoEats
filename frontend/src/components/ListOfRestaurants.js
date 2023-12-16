@@ -8,8 +8,8 @@ export default function ListOfRestaurants() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8022/api/restaurants");
-        const data = await response.json();
+        const response = await fetch("api/restaurants");
+        const data = await response.text();
         setRestaurants(data.restaurants);
       } catch (error) {
         console.error("Error fetching data:", error);
