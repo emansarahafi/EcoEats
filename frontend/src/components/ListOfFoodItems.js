@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import FoodCardItem from "./FoodCardItem";
 import SearchBar from "./SearchBar";
 import { useParams } from "react-router-dom";
+import axios from "axios"; // Add this line
 
 const ListOfFoodItems = ({ handleAddToCart }) => {
   const { id } = useParams();

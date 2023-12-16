@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RestaurantCardItem from "./RestaurantCardItem";
 import SearchBar from "./SearchBar";
+import axios from "axios"; // Add this line
 
 export default function ListOfRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
