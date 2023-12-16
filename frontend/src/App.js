@@ -20,13 +20,13 @@ import Checkout from "./components/Checkout";
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
         const response = await fetch("http://localhost:8022/api/restaurants");
-        const data = await response.json();
-        setRestaurants(data.restaurants);
+        setRestaurants(response.data.restaurants);
       } catch (error) {
         console.error("Error fetching restaurants:", error);
       }
@@ -34,8 +34,6 @@ function App() {
 
     fetchRestaurants();
   }, []);
-
-  const [selectedItems, setSelectedItems] = useState([]);
 
   const handleIncrement = (id) => {
     const item = selectedItems.find((product) => product.id === id);
@@ -81,7 +79,7 @@ function App() {
     <div
       style={{
         backgroundImage:
-          '"url(https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp)"', // Add your background image URL
+          'url("https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp")',
         backgroundSize: "cover",
         minHeight: "100vh",
       }}

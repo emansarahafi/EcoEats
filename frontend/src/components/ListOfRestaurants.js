@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import RestaurantCardItem from "./RestaurantCardItem";
 import SearchBar from "./SearchBar";
-import axios from "axios"; // Add this line
+import axios from "axios";
 
 export default function ListOfRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState(restaurants);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8022/api/restauants");
-        const data = await response.json();
-        setRestaurants(data.restaurants);
+        const response = await axios.get("http://localhost:8022/api/restaurants");
+        setRestaurants(response.data.restaurants);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -19,8 +19,6 @@ export default function ListOfRestaurants() {
 
     fetchData();
   }, []);
-
-  const [filteredRestaurants, setFilteredRestaurants] = useState(restaurants);
 
   const handleSearch = (query) => {
     const filtered = restaurants.filter((restaurant) =>

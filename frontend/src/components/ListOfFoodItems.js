@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import FoodCardItem from "./FoodCardItem";
 import SearchBar from "./SearchBar";
 import { useParams } from "react-router-dom";
-import axios from "axios"; // Add this line
+import axios from "axios";
 
 const ListOfFoodItems = ({ handleAddToCart }) => {
   const { id } = useParams();
-
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [filteredFoodItems, setFilteredFoodItems] = useState([]);
 
@@ -14,10 +13,9 @@ const ListOfFoodItems = ({ handleAddToCart }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:8022/api/restaurants/${id}`);
-        const data = await response.json();
-        if (data.restaurant) {
-          setSelectedRestaurant(data.restaurant);
-          setFilteredFoodItems(data.restaurant.products);
+        if (response.data.restaurant) {
+          setSelectedRestaurant(response.data.restaurant);
+          setFilteredFoodItems(response.data.restaurant.products);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
