@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
@@ -9,12 +9,18 @@ const RestaurantCardItem = ({ restaurant, details }) => {
   const navigate = useNavigate();
 
   const showRestaurantItems = () => {
-    navigate(`/restaurant/${restaurant.id}/products`);
+    navigate(`/restaurant/${restaurant._id}/products`);
   };
 
   const showRestaurantDetails = () => {
-    navigate(`/restaurant/${restaurant.id}/details`);
+    navigate(`/restaurant/${restaurant._id}/details`);
   };
+useEffect(() => {
+  console.log("edf: ", typeof restaurant._id);
+  console.log("edf: ", restaurant._id)
+  console.log("edf: ", restaurant)
+}, [])
+
 
   const stars = [...Array(5)].map((_, i) => (
     <span
@@ -59,7 +65,7 @@ const RestaurantCardItem = ({ restaurant, details }) => {
           <>
             <Show content={restaurant.description} maxLength={30} />
             {/* Use Button instead of Badge */}
-            <Button variant="secondary" style={{ cursor: 'pointer' }} onClick={() => showRestaurantItems(restaurant.id)}>
+            <Button variant="secondary" style={{ cursor: 'pointer' }} onClick={() => showRestaurantItems()}>
               View Menu
             </Button>
             <Button variant="light" style={{border:"1px solid black", cursor: 'pointer' }} onClick={showRestaurantDetails}>

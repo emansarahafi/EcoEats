@@ -20,12 +20,17 @@ export default function ListOfRestaurants() {
     fetchData();
   }, []);
 
-  const handleSearch = (query) => {
-    const filtered = restaurants.filter((restaurant) =>
-      restaurant.name.toLowerCase().includes(query.toLowerCase())
+  useEffect(() => {
+    setFilteredRestaurants(restaurants);
+  }, [restaurants]);
+
+  const handleSearch = (searchTerm) => {
+    const newFilteredRestaurants = restaurants.filter((restaurant) =>
+      restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilteredRestaurants(filtered);
-  };
+
+    setFilteredRestaurants(newFilteredRestaurants);
+  }
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>

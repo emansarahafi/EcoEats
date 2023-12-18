@@ -21,6 +21,7 @@ const ListOfFoodItems = ({ handleAddToCart }) => {
         console.error("Error fetching data:", error);
       }
     };
+    console.log("id", id);
 
     fetchData();
   }, [id]);
