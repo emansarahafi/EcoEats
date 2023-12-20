@@ -57,19 +57,24 @@ function App() {
   };
 
   const handleAddToCart = (item) => {
-    const oldItem = selectedItems.find(
-      (product) => product.id === item.id
-    );
-    if (!oldItem) {
-      setSelectedItems([...selectedItems, { ...item, qte: 1 }]);
+    const selectedItemsNames = selectedItems.map((item) => item.name);
+  
+    if (selectedItemsNames.includes(item.name)) {
+      console.log("already there");
+  
+      const updatedItems = selectedItems.map((product) => {
+        if (product.name === item.name) {
+          return { ...product, qte: product.qte + 1 };
+        }
+        return product;
+      });
+  
+      setSelectedItems(updatedItems);
     } else {
-      const newItems = selectedItems.filter(
-        (product) => product.id !== item.id
-      );
-      setSelectedItems([...newItems, { ...oldItem, qte: oldItem.qte + 1 }]);
+      console.log("not there");
+      setSelectedItems([...selectedItems, { ...item, qte: 1 }]);
     }
   };
-
   const getItemsCount = () => {
     return selectedItems.reduce((acc, current) => {
       return acc + current.qte;
