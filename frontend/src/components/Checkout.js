@@ -26,12 +26,10 @@ function Checkout({selectedItems}) {
       <MDBRow>
         <MDBCol md="7" lg="7" xl="6" className="mb-4 mb-md-0">
           <h5 className="mb-0 text-success"> Total price: {getTotal()}</h5>
-          <h5 className="mb-3">Diabites Pump &amp; Supplies</h5>
+          <h5 className="mb-3">Thank you for using EcoEats!</h5>
           <div>
             <div className="d-flex justify-content-between">
               <div className="d-flex flex-row mt-1">
-                <h6>Insurance Responsibility</h6>
-                <h6 className="fw-bold text-success ms-1">$71.76</h6>
               </div>
               <div className="d-flex flex-row align-items-center text-primary">
                 <span className="ms-1">Add Insurer card</span>
