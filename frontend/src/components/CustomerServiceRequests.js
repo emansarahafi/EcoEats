@@ -3,30 +3,26 @@ import axios from "axios";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 
-function Customers() {
-  const url = "http://localhost:8022/api/users";
-  const [users, setUsers] = useState([]);
+function CustomerServiceRequests() {
+  const url = "http://localhost:8022/api/customerservices";
+  const [customerServiceRequest, setCustomerServiceRequest] = useState([]);
 
   useEffect(() => {
-    fetchUsers();
+    fetchForms();
   }, []);
 
-  const fetchUsers = async () => {
+  const fetchForms = async () => {
     try {
       const response = await axios.get(url);
-      // Filter users with role 'user' before setting the state
-      const filteredUsers = response.data.users.filter(user => user.role === 'user');
-      setUsers(filteredUsers);
-      console.log(response);
+      setCustomerServiceRequest(response.data.customerServices);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching forms:", error);
     }
   };
 
-  const handleDelete = (userId) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
+  const handleDeleteForm = (requestId) => {
+    if (window.confirm("Are you sure you want to delete this form?")) {
       const token = localStorage.getItem("token");
-      console.log(token);
 
       if (token) {
         const headers = {
@@ -34,12 +30,14 @@ function Customers() {
         };
 
         axios
-          .delete(`${url}/${userId}`, { headers })
+          .delete(`${url}/${requestId}`, { headers })
           .then(() => {
-            setUsers(users.filter((user) => user._id !== userId));
+            setCustomerServiceRequest((prevRequest) =>
+              prevRequest.filter((request) => request._id !== requestId)
+            );
           })
           .catch((err) => {
-            console.log(err);
+            console.error("Error deleting form:", err);
           });
       }
     }
@@ -47,8 +45,8 @@ function Customers() {
 
   return (
     <div style={{ width: "80%", margin: "auto", marginTop: "40px" }}>
-      {users.map((user) => (
-        <Accordion key={user._id}>
+      {customerServiceRequest && customerServiceRequest.map((request) => (
+        <Accordion key={request._id}>
           <Accordion.Item eventKey="0">
             <Accordion.Header
               style={{
@@ -60,7 +58,7 @@ function Customers() {
                 cursor: "pointer",
               }}
             >
-              {user.userName.toUpperCase()}
+              {request.name.toUpperCase()}
             </Accordion.Header>
             <Accordion.Body
               style={{
@@ -72,21 +70,20 @@ function Customers() {
                 justifyContent: "space-between",
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                <div>
-                  <p>Email: {user.email}</p>
-                  <p>Date of birth: {new Date(user.dob).toLocaleDateString()}</p>
-                  <p>Address: {user.address}</p>
-                  <p>Phone number: {user.phoneNumber}</p>
-                </div>
-                <div>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    Delete
-                  </Button>
-                </div>
+              <div>
+                <p>Email: {request.email}</p>
+                <p>Inquiry: {request.inquiry}</p>
+                <p>Status: {request.status}</p>
+                <p>Creation Date: {new Date(request.date).toLocaleDateString()}</p>
+              </div>
+              <div>
+                <Button
+                  style={{ marginLeft: "10px" }}
+                  variant="danger"
+                  onClick={() => handleDeleteForm(request._id)}
+                >
+                  Delete
+                </Button>
               </div>
             </Accordion.Body>
           </Accordion.Item>
@@ -96,4 +93,4 @@ function Customers() {
   );
 }
 
-export default Customers;
+export default CustomerServiceRequests;

@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
-export function UserRole() {
+export function getUserRole() {
     const token = localStorage.getItem("token"); 
     if (token) {
     try {

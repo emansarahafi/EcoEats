@@ -5,9 +5,11 @@ import { useNavigate} from 'react-router-dom';
 
 const Cart = ({ selectedItems, handleIncrement, handleDecrement }) => {
   const getTotal = () => {
-    return selectedItems.reduce((acc, item) => {
-      return acc + item.price * item.qte;
-    }, 0);
+    let total = 0;
+    selectedItems.forEach(product => {
+      total += product.price * product.qte;
+    });
+    return Math.round(total * 100) / 100;
   };
   const navigate = useNavigate();
   const NavigateCheckout=()=>{
@@ -19,18 +21,18 @@ const Cart = ({ selectedItems, handleIncrement, handleDecrement }) => {
       <h2>Shopping Cart</h2>
       <ul>
         {selectedItems.map((item) => (
-          <li key={item.id} >
+          <li key={item._id} >
             <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', width: '40%'}}>
               <div>
                 {item.name} - Quantity: {item.qte} - Unit Price: {item.price}$ - Price: {item.price * item.qte}$
               </div>
               <div style={{ display: "flex", gap: "10px", alignItems: 'center' }}>
-                <Button variant="success" onClick={() => handleIncrement(item.id)}>
-                  +
+                <Button variant="primary" onClick={() => handleDecrement(item._id)}>
+                  -
                 </Button>
                 <span>{item && item.qte}</span>
-                <Button variant="primary" onClick={() => handleDecrement(item.id)}>
-                  -
+                <Button variant="success" onClick={() => handleIncrement(item._id)}>
+                  +
                 </Button>
               </div>
             </div>

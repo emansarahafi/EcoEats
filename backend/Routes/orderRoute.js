@@ -8,6 +8,8 @@ const {
   deleteOrder,
 } = require("../Controllers/orderController");
 
+const authMiddleware = require("../middleware/isAuth");
+orderRoute.use(authMiddleware);
 orderRoute.get("/orders", getOrders);
 orderRoute.get("/orders/:id", getOneOrder);
 orderRoute.post("/orders", postOrder);

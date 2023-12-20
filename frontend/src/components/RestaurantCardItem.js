@@ -16,13 +16,6 @@ const RestaurantCardItem = ({ restaurant, details }) => {
     navigate(`/restaurant/${restaurant._id}/details`);
   };
 
-  useEffect(() => {
-    console.log("edf: ", typeof restaurant._id);
-    console.log("edf: ", restaurant._id)
-    console.log("edf: ", restaurant)
-  }, [])
-
-
   const stars = [...Array(5)].map((_, i) => (
     <span
       key={i}

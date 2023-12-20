@@ -3,6 +3,8 @@ import RestaurantCardItem from "./RestaurantCardItem";
 import SearchBar from "./SearchBar";
 import axios from "axios";
 import "@picocss/pico";
+import { Navigate } from "react-router-dom"; 
+import { getUserRole } from "./UserRole";
 
 export default function ListOfRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
@@ -12,6 +14,7 @@ export default function ListOfRestaurants() {
   const [uniqueLocations, setUniqueLocations] = useState([]);
   const [minRatingFilter, setMinRatingFilter] = useState(0);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const role = getUserRole();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,6 +83,10 @@ export default function ListOfRestaurants() {
     );
     setFilteredRestaurants(newFilteredRestaurants);
   }, [minRatingFilter]);
+
+  if (role === "admin") {
+    return <Navigate to="/users" /> 
+  }
 
   return (
     <div className="container">

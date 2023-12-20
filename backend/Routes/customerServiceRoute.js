@@ -7,7 +7,6 @@ const {
   putCustomerService,
   deleteCustomerService,
 } = require("../Controllers/customerServiceController");
-
 customerServiceRoute.get("/customerservices", getCustomerServices);
 customerServiceRoute.get("/customerservices/:id", getOneCustomerService);
 customerServiceRoute.post("/customerservices", postCustomerService);

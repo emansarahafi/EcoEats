@@ -1,13 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { UserRole } from "./UserRole";
+import { getUserRole } from "./UserRole";
 import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faShoppingCart, faHeadset, faFileAlt, faUsers, faUser } from "@fortawesome/free-solid-svg-icons";
-import Badge from 'react-bootstrap/Badge';
+import {
+  faBell,
+  faShoppingCart,
+  faHeadset,
+  faFileAlt,
+  faUsers,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import Badge from "react-bootstrap/Badge";
 
 export default function NavigationBar({ cartItemsCount }) {
-  const role = UserRole();
+  const role = getUserRole();
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -25,48 +32,49 @@ export default function NavigationBar({ cartItemsCount }) {
 
       <ul>
         {role === "user" && (
-          <li>
-            <NavLink to="/notifications">
-              <FontAwesomeIcon icon={faBell} />
-            </NavLink>
-          </li>
+          <>
+            <li>
+              <NavLink to="/orders">Orders</NavLink>
+            </li>
+            <li>
+              <NavLink to="/notifications">
+                <FontAwesomeIcon icon={faBell} />
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/cart">
+                <FontAwesomeIcon icon={faShoppingCart} />
+                <Badge bg="danger">{cartItemsCount ?? 0}</Badge>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/customers">
+                <FontAwesomeIcon icon={faHeadset} />
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/profile">
+                <FontAwesomeIcon icon={faUser} />
+              </NavLink>
+            </li>
+          </>
         )}
-
-        <li>
-          <NavLink to="/cart">
-            <FontAwesomeIcon icon={faShoppingCart} />
-            <Badge bg="danger">{cartItemsCount ?? 0}</Badge>
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/customers">
-            <FontAwesomeIcon icon={faHeadset} />
-          </NavLink>
-        </li>
 
         {role === "admin" && (
-          <li>
-            <NavLink to="/customerServices">
-              <FontAwesomeIcon icon={faFileAlt} />
-            </NavLink>
-          </li>
-        )}
-
-        {role === "admin" && (
-          <li>
-            <NavLink to="/users">
-              <FontAwesomeIcon icon={faUsers} />
-            </NavLink>
-          </li>
-        )}
-
-        {role === "user" && (
-          <li>
-            <NavLink to="/profile">
-              <FontAwesomeIcon icon={faUser} />
-            </NavLink>
-          </li>
+          <>
+            <li>
+              <NavLink to="/customerServices">
+                <FontAwesomeIcon icon={faFileAlt} />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/users">
+                <FontAwesomeIcon icon={faUsers} />
+              </NavLink>
+            </li>
+          </>
         )}
 
         <li>
@@ -75,7 +83,17 @@ export default function NavigationBar({ cartItemsCount }) {
               Sign Out
             </Link>
           ) : (
-            <Link to="/signUp">Sign Up/In</Link>
+            <>
+              <li>
+                <NavLink to="/cart">
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                  <Badge bg="danger">{cartItemsCount ?? 0}</Badge>
+                </NavLink>
+              </li>
+              <li>
+                <Link to="/signUp">Sign Up/In</Link>
+              </li>
+            </>
           )}
         </li>
       </ul>

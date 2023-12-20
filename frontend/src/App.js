@@ -11,13 +11,14 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import PasswordReset from "./components/PasswordReset";
 import Profile from "./components/Profile";
-import ListOfForms from "./components/ListOfForms";
+import CustomerServiceRequests from "./components/CustomerServiceRequests";
 import Customers from "./components/Customers";
 import RestaurantCardItem from "./components/RestaurantCardItem";
 import RestaurantDetails from "./components/RestaurantDetails";
 import PrivateRoute from "./components/PrivateRoute";
 import Checkout from "./components/Checkout";
-import axios from "axios";
+import { Orders } from "./components/Orders";
+import axios from 'axios';
 
 function App() {
   const [restaurants, setRestaurants] = useState([]);
@@ -36,34 +37,41 @@ function App() {
     fetchRestaurants();
   }, []);
 
+  const clearCart = () => {
+    setSelectedItems([]);
+  };
+
   const handleIncrement = (id) => {
-    const item = selectedItems.find((product) => product.id === id);
-    if (!!item) {
-      const newItems = selectedItems.filter(
-        (product) => product.id !== id
-      );
-      setSelectedItems([...newItems, { ...item, qte: item.qte + 1 }]);
+    const idx = selectedItems.findIndex((product) => product._id === id);
+    if (idx > -1) {
+      const item = selectedItems[idx];
+      const newItems = [...selectedItems];
+      newItems[idx] = { ...item, qte: item.qte + 1 };
+      setSelectedItems(newItems);
     }
   };
 
   const handleDecrement = (id) => {
-    const item = selectedItems.find((product) => product.id === id);
-    if (!!item && item.qte > 0) {
-      const newItems = selectedItems.filter(
-        (product) => product.id !== id
-      );
-      setSelectedItems([...newItems, { ...item, qte: item.qte - 1 }]);
+    const idx = selectedItems.findIndex((product) => product._id === id);
+    if (idx > -1) {
+      const item = selectedItems[idx];
+      if (item.qte === 1) {
+        setSelectedItems(selectedItems.filter(product => product._id !== id));
+      }
+      else {
+        const newItems = [...selectedItems];
+        newItems[idx] = { ...item, qte: item.qte - 1 };
+        setSelectedItems(newItems);
+      }
     }
   };
 
   const handleAddToCart = (item) => {
-    const selectedItemsNames = selectedItems.map((item) => item.name);
+    const acutalItem = selectedItems.find((x) => x._id === item._id);
   
-    if (selectedItemsNames.includes(item.name)) {
-      console.log("already there");
-  
+    if (!!acutalItem) {
       const updatedItems = selectedItems.map((product) => {
-        if (product.name === item.name) {
+        if (product._id === item._id) {
           return { ...product, qte: product.qte + 1 };
         }
         return product;
@@ -71,7 +79,6 @@ function App() {
   
       setSelectedItems(updatedItems);
     } else {
-      console.log("not there");
       setSelectedItems([...selectedItems, { ...item, qte: 1 }]);
     }
   };
@@ -82,17 +89,17 @@ function App() {
   };
 
   return (
-    <div
-      style={{
-        backgroundImage:
-          'url("https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp")',
-        backgroundSize: "cover",
-        minHeight: "100vh",
-      }}
-    >
       <BrowserRouter>
         <NavigationBar cartItemsCount={getItemsCount()} />
         <Routes>
+        <Route 
+            path="/orders" 
+            element={
+              <PrivateRoute allowedRoles={['user']}>
+                <Orders/>
+              </PrivateRoute>
+            }
+          />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/resetPassword" element={<PasswordReset />} />
@@ -110,7 +117,7 @@ function App() {
             path="/customerServices" 
             element={
               <PrivateRoute allowedRoles={['admin']}>
-                <ListOfForms/>
+                <CustomerServiceRequests/>
               </PrivateRoute>
             }
           />
@@ -138,7 +145,14 @@ function App() {
             path="/restaurant/:id/products"
             element={<ListOfFoodItems restaurants={restaurants} handleAddToCart={handleAddToCart} />}
           />
-          <Route path="/checkout" element={<Checkout selectedItems={selectedItems} />}
+
+          <Route 
+            path="/checkout" 
+            element={
+              <PrivateRoute allowedRoles={['user']}>
+                <Checkout selectedItems={selectedItems} clearCart={clearCart} />/
+              </PrivateRoute>
+            }
           />
           <Route
             path="/cart"
@@ -152,7 +166,6 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </div>
   );
 }
 

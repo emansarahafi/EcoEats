@@ -3,7 +3,8 @@ const Order = require("../models/Order");
 // Get all orders
 const getOrders = async (request, response) => {
   try {
-    const orders = await Order.find().populate('products').populate('user');
+    const userId = request.user.id;
+    const orders = await Order.find({ userId }).populate('products');
     response.status(200).json({ orders: orders });
   } catch (error) {
     response.status(500).json({ msg: "Error on getting orders" });
@@ -28,20 +29,19 @@ const getOneOrder = async (req, res) => {
 // Post one order
 const postOrder = async (req, res) => {
   try {
-    const { user, products, totalPrice } = req.body;
-
+    const user = req.user;
+    const { products, totalPrice } = req.body;
     const newOrder = new Order({
-      user: user,
+      userId: user.id,
       products: products,
       totalPrice: totalPrice,
     });
 
     await newOrder.save();
-
-    res.status(201).json(newOrder);
+    return res.status(201).json(newOrder);
   } catch (error) {
     console.error(error);
-    res.status(500).send("Server error while creating order.");
+    return res.status(500).send("Server error while creating order.");
   }
 };
 

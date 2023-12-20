@@ -25,6 +25,6 @@ app.use(express.json());
 app.use("/api", userRoute);
 app.use("/api", productRoute);
 app.use("/api", customerServiceRoute);
-app.use("/api", orderRoute);
 app.use("/api", restaurantRoute);
 app.use('/uploads', express.static('uploads'));
+app.use("/api", orderRoute);

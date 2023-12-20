@@ -19,7 +19,8 @@ function SignIn() {
             .post(url, user)
             .then((response) => {
                 console.log(response.data);
-                const token = response.data.token; localStorage.setItem("token", token);
+                const token = response.data.token;
+                localStorage.setItem("token", token);
                 if(response.data.user.role==='user'){navigate('/profile');} 
                 else{navigate('/users')}
             })
