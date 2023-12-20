@@ -8,18 +8,22 @@ function ListOfForms() {
   const [forms, setForms] = useState([]);
 
   useEffect(() => {
+    console.log("Fetching forms...");
     fetchForms();
   }, []);
-
+  
   const fetchForms = async () => {
     try {
       const response = await axios.get(url);
-      console.log(response); // Log the response to inspect its structure
+      console.log("Forms fetched successfully:", response.data.forms);
       setForms(response.data.forms);
+      console.log("Forms state:", forms);
     } catch (error) {
       console.error("Error fetching forms:", error);
+      console.error("Error response:", error.response);
     }
   };
+  
 
   const handleDeleteForm = (formId) => {
     if (window.confirm("Are you sure you want to delete this form?")) {
