@@ -3,13 +3,16 @@ import RestaurantCardItem from "./RestaurantCardItem";
 import SearchBar from "./SearchBar";
 import axios from "axios";
 import "@picocss/pico";
+
 export default function ListOfRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [locationfilteredRestaurants, setLocationFilteredRestaurants] = useState([]);
   const [searchfilteredRestaurants, setSearchFilteredRestaurants] = useState([]);
   const [uniqueLocations, setUniqueLocations] = useState([]);
-  const [locationFilter, setLocationFilter] = useState("");
+  const [minRatingFilter, setMinRatingFilter] = useState(0);
+
+  const [isSearchClicked, setIsSearchClicked] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +31,8 @@ export default function ListOfRestaurants() {
 
   useEffect(() => {
     setFilteredRestaurants(restaurants);
+    setMinRatingFilter(0);
+  
   }, [restaurants]);
 
   useEffect(() => {
@@ -42,65 +47,84 @@ export default function ListOfRestaurants() {
     );
 
     setSearchFilteredRestaurants(newFilteredRestaurants);
+    setIsSearchClicked(true);
   };
 
-  function merge(array1, array2) { // to merge all the filters
-    let arrayMerge = array1.concat(array2)
-    return arrayMerge.filter( (item, index) =>
-        arrayMerge.indexOf(item) == index
-    )
-}
   useEffect(() => {
-    setFilteredRestaurants(merge(searchfilteredRestaurants, locationfilteredRestaurants));
-  }, [searchfilteredRestaurants, locationfilteredRestaurants]);
+    if (isSearchClicked) {
+      const combinedFilteredRestaurants = locationfilteredRestaurants.filter((restaurant) =>
+        searchfilteredRestaurants.includes(restaurant)
+      );
 
+      setFilteredRestaurants(combinedFilteredRestaurants);
+    }
+  }, [locationfilteredRestaurants, searchfilteredRestaurants, isSearchClicked]);
 
   const handleLocationFilter = (location) => {
-    setLocationFilter(location);
-    console.log(locationFilter)
-    if (location === "All") {
-      setLocationFilteredRestaurants(restaurants);}
-    else {
-      var newFilteredRestaurants = restaurants.filter(
-        (restaurant) => restaurant.location === locationFilter
+    console.log(location);
+    if (location === "") {
+      setLocationFilteredRestaurants(restaurants);
+    } else {
+      const newFilteredRestaurants = restaurants.filter(
+        (restaurant) => restaurant.location === location
       );
-    
-      }
-    setLocationFilteredRestaurants(newFilteredRestaurants)
-    ;
+      setLocationFilteredRestaurants(newFilteredRestaurants);
+    }
+  };
+
+  const handleRatingFilter = (minRating) => {
+    if (minRating === "") {
+      setMinRatingFilter(0);
+    }
+    setMinRatingFilter(parseFloat(minRating));
+  };
+
+  useEffect(() => {
+    const newFilteredRestaurants = filteredRestaurants.filter(
+      (restaurant) => restaurant.rating >= minRatingFilter
+    );
+    setFilteredRestaurants(newFilteredRestaurants);
+
   }
+  , [minRatingFilter, filteredRestaurants]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <SearchBar onSearch={handleSearch} />
-        
+    <div className="container">
+      <div className="header">
+        <h1>Restaurant Search</h1>
       </div>
-      <select onChange={(e) => {console.log(e.target.value); handleLocationFilter(e.target.value)}}>
-          <option value="" disabled selected>
-             Location
-          </option>
-          <option value="All">All</option>
-          {uniqueLocations.map((location) => (
-            <option
-              key={location}
-              value={location}
-              
-            >
-              {location}
-            </option>
-          ))}
-        </select>{" "}
-
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
-        {filteredRestaurants.map((restaurant) => (
-          <div key={restaurant._id}>
-            <RestaurantCardItem restaurant={restaurant} />
+      <div className="filters">
+        <div className="search-bar">
+          <SearchBar onSearch={handleSearch} />
+        </div>
+        <div className="filter-dropdowns">
+          <div className="filter-dropdown">
+            <select style={{backgroundColor:"white"}} id="location" onChange={(e) => handleLocationFilter(e.target.value)}>
+              <option value="">All</option>
+              {uniqueLocations.map((location) => (
+                <option key={location} value={location}>
+                  {location}
+                </option>
+              ))}
+            </select>
           </div>
+          <div className="filter-dropdown">
+            <select id="stars" onChange={(e) => handleRatingFilter(e.target.value)} style={{backgroundColor:"white"}}>
+              <option value="">All</option>
+              <option value="1">1 Star</option>
+              <option value="2">2 Stars</option>
+              <option value="3">3 Stars</option>
+              <option value="4">4 Stars</option>
+              <option value="5">5 Stars</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div className="restaurant-list" style={{ display: "flex", justifyContent: "space-around" }}>
+        {filteredRestaurants.map((restaurant) => (
+          <RestaurantCardItem key={restaurant._id} restaurant={restaurant} />
         ))}
       </div>
-
-      <div></div>
     </div>
   );
 }

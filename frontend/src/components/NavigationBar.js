@@ -18,7 +18,7 @@ export default function NavigationBar({ cartItemsCount }) {
   };
 
   return (
-    <nav>
+    <nav className="navigation">
       <ul>
         <Link to="/">Navbar</Link>
       </ul>
