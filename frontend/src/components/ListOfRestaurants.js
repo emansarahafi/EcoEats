@@ -11,15 +11,12 @@ export default function ListOfRestaurants() {
   const [searchfilteredRestaurants, setSearchFilteredRestaurants] = useState([]);
   const [uniqueLocations, setUniqueLocations] = useState([]);
   const [minRatingFilter, setMinRatingFilter] = useState(0);
-
   const [isSearchClicked, setIsSearchClicked] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8022/api/restaurants"
-        );
+        const response = await axios.get("http://localhost:8022/api/restaurants");
         setRestaurants(response.data.restaurants);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -31,8 +28,7 @@ export default function ListOfRestaurants() {
 
   useEffect(() => {
     setFilteredRestaurants(restaurants);
-    setMinRatingFilter(0);
-  
+    console.log(restaurants)
   }, [restaurants]);
 
   useEffect(() => {
@@ -61,7 +57,6 @@ export default function ListOfRestaurants() {
   }, [locationfilteredRestaurants, searchfilteredRestaurants, isSearchClicked]);
 
   const handleLocationFilter = (location) => {
-    console.log(location);
     if (location === "") {
       setLocationFilteredRestaurants(restaurants);
     } else {
@@ -75,8 +70,9 @@ export default function ListOfRestaurants() {
   const handleRatingFilter = (minRating) => {
     if (minRating === "") {
       setMinRatingFilter(0);
+    } else {
+      setMinRatingFilter(parseFloat(minRating));
     }
-    setMinRatingFilter(parseFloat(minRating));
   };
 
   useEffect(() => {
@@ -84,9 +80,7 @@ export default function ListOfRestaurants() {
       (restaurant) => restaurant.rating >= minRatingFilter
     );
     setFilteredRestaurants(newFilteredRestaurants);
-
-  }
-  , [minRatingFilter, filteredRestaurants]);
+  }, [minRatingFilter]);
 
   return (
     <div className="container">
@@ -99,7 +93,11 @@ export default function ListOfRestaurants() {
         </div>
         <div className="filter-dropdowns">
           <div className="filter-dropdown">
-            <select style={{backgroundColor:"white"}} id="location" onChange={(e) => handleLocationFilter(e.target.value)}>
+            <select
+              style={{ backgroundColor: "white" }}
+              id="location"
+              onChange={(e) => handleLocationFilter(e.target.value)}
+            >
               <option value="">All</option>
               {uniqueLocations.map((location) => (
                 <option key={location} value={location}>
@@ -109,7 +107,11 @@ export default function ListOfRestaurants() {
             </select>
           </div>
           <div className="filter-dropdown">
-            <select id="stars" onChange={(e) => handleRatingFilter(e.target.value)} style={{backgroundColor:"white"}}>
+            <select
+              id="stars"
+              onChange={(e) => handleRatingFilter(e.target.value)}
+              style={{ backgroundColor: "white" }}
+            >
               <option value="">All</option>
               <option value="1">1 Star</option>
               <option value="2">2 Stars</option>
