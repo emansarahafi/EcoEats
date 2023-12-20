@@ -1,7 +1,4 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import { UserRole } from "./UserRole";
 import { Link, NavLink } from "react-router-dom";
@@ -9,100 +6,79 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faShoppingCart, faHeadset, faFileAlt, faUsers, faUser } from "@fortawesome/free-solid-svg-icons";
 import Badge from 'react-bootstrap/Badge';
 
-
-export default function NavigationBar({cartItemsCount}) {
-  const role = UserRole(); 
-  const navigate=useNavigate() 
+export default function NavigationBar({ cartItemsCount }) {
+  const role = UserRole();
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
-    if (window.confirm("Are you sure you want to sign out?")){ 
-      localStorage.removeItem("token"); // Remove the token from local storage 
-      navigate("/"); // Navigate to the home page or login page
-    } 
+    if (window.confirm("Are you sure you want to sign out?")) {
+      localStorage.removeItem("token");
+      navigate("/");
+    }
   };
+
   return (
-    <Navbar >
-      <Container>
-        <Navbar.Brand href="/">Navbar</Navbar.Brand>
-        {/* <Nav className="ml-auto"> */}
-        <Nav
-          className="me-auto"
-          style={{
-            display: "flex",
-            padding: "14px 20px",
-            //  justifyContent : "space-around",
-            width: "100%",
-            
-          }}
-        >
-          {role === "user" && (
-            <Nav.Link as={NavLink} to="/notifications">
+    <nav>
+      <ul>
+        <Link to="/">Navbar</Link>
+      </ul>
+
+      <ul>
+        {role === "user" && (
+          <li>
+            <NavLink to="/notifications">
               <FontAwesomeIcon icon={faBell} />
-            </Nav.Link>
-          )}
-
-          <Nav.Link>
-            <NavLink to="/cart"  >
-              <FontAwesomeIcon icon={faShoppingCart}/>  <Badge bg="danger">{cartItemsCount ?? 0}</Badge>
             </NavLink>
-          </Nav.Link>
+          </li>
+        )}
 
-          <Nav.Link>
-            <NavLink
-              to="/customers">
-              <FontAwesomeIcon icon={faHeadset}  />
-            </NavLink>
-          </Nav.Link>
+        <li>
+          <NavLink to="/cart">
+            <FontAwesomeIcon icon={faShoppingCart} />
+            <Badge bg="danger">{cartItemsCount ?? 0}</Badge>
+          </NavLink>
+        </li>
 
-          {role === "admin" && (
-            <Nav.Link as={NavLink} to="/customerServices">
+        <li>
+          <NavLink to="/customers">
+            <FontAwesomeIcon icon={faHeadset} />
+          </NavLink>
+        </li>
+
+        {role === "admin" && (
+          <li>
+            <NavLink to="/customerServices">
               <FontAwesomeIcon icon={faFileAlt} />
-            </Nav.Link>
-          )}
+            </NavLink>
+          </li>
+        )}
 
-          
-          {role === "admin" && (
-            <Nav.Link as={NavLink} to="/users">
+        {role === "admin" && (
+          <li>
+            <NavLink to="/users">
               <FontAwesomeIcon icon={faUsers} />
-            </Nav.Link>
-          )}
+            </NavLink>
+          </li>
+        )}
 
-          {role === "user" && (
-            <Nav.Link as={NavLink} to="/profile">
+        {role === "user" && (
+          <li>
+            <NavLink to="/profile">
               <FontAwesomeIcon icon={faUser} />
-            </Nav.Link>
-          )}
+            </NavLink>
+          </li>
+        )}
 
-          <Nav.Link>
-            {role ? (
-          <Link to="/"
-          onClick={handleSignOut} 
-          style={{
-          borderRight: "none",
-          border: "3px solid grey",
-          borderRadius: "10px",
-          marginLeft: "190px",
-          padding: "8px",
-          }} 
-        >
-          Sign Out
-        </Link> 
-        ):(
-          <Link
-            to="/signUp"
-            style={{
-              borderRight: "none",
-              border: "3px solid grey",
-              borderRadius: "10px",
-              marginLeft: "190px",
-              padding: "8px",
-            }}>
-            Sign Up/In
-          </Link> 
+        <li>
+          {role ? (
+            <Link to="/" onClick={handleSignOut}>
+              Sign Out
+            </Link>
+          ) : (
+            <Link to="/signUp">Sign Up/In</Link>
           )}
-          </Nav.Link>
-        </Nav>
-      </Container>
-    </Navbar>
+        </li>
+      </ul>
+    </nav>
   );
 }
