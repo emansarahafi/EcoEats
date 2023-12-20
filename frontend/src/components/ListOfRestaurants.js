@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import RestaurantCardItem from "./RestaurantCardItem";
 import SearchBar from "./SearchBar";
 import axios from "axios";
@@ -28,7 +28,6 @@ export default function ListOfRestaurants() {
 
   useEffect(() => {
     setFilteredRestaurants(restaurants);
-    console.log(restaurants)
   }, [restaurants]);
 
   useEffect(() => {
@@ -37,14 +36,14 @@ export default function ListOfRestaurants() {
     setUniqueLocations(uniqueLocations);
   }, [restaurants]);
 
-  const handleSearch = (searchTerm) => {
+  const handleSearch = useCallback((searchTerm) => {
     const newFilteredRestaurants = restaurants.filter((restaurant) =>
       restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     setSearchFilteredRestaurants(newFilteredRestaurants);
     setIsSearchClicked(true);
-  };
+  }, [restaurants]);
 
   useEffect(() => {
     if (isSearchClicked) {
@@ -56,7 +55,7 @@ export default function ListOfRestaurants() {
     }
   }, [locationfilteredRestaurants, searchfilteredRestaurants, isSearchClicked]);
 
-  const handleLocationFilter = (location) => {
+  const handleLocationFilter = useCallback((location) => {
     if (location === "") {
       setLocationFilteredRestaurants(restaurants);
     } else {
@@ -65,15 +64,15 @@ export default function ListOfRestaurants() {
       );
       setLocationFilteredRestaurants(newFilteredRestaurants);
     }
-  };
+  }, [restaurants]);
 
-  const handleRatingFilter = (minRating) => {
+  const handleRatingFilter = useCallback((minRating) => {
     if (minRating === "") {
       setMinRatingFilter(0);
     } else {
       setMinRatingFilter(parseFloat(minRating));
     }
-  };
+  }, []);
 
   useEffect(() => {
     const newFilteredRestaurants = filteredRestaurants.filter(
