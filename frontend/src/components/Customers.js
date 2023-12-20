@@ -14,7 +14,9 @@ function Customers() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(url);
-      setUsers(response.data.users);
+      // Filter users with role 'user' before setting the state
+      const filteredUsers = response.data.users.filter(user => user.role === 'user');
+      setUsers(filteredUsers);
       console.log(response);
     } catch (error) {
       console.log(error);
