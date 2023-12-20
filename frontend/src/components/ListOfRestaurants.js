@@ -6,6 +6,8 @@ import "@picocss/pico";
 export default function ListOfRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [locationfilteredRestaurants, setLocationFilteredRestaurants] = useState([]);
+  const [searchfilteredRestaurants, setSearchFilteredRestaurants] = useState([]);
   const [uniqueLocations, setUniqueLocations] = useState([]);
   const [locationFilter, setLocationFilter] = useState("");
 
@@ -39,23 +41,32 @@ export default function ListOfRestaurants() {
       restaurant.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    setFilteredRestaurants(newFilteredRestaurants);
+    setSearchFilteredRestaurants(newFilteredRestaurants);
   };
 
-  
+  function merge(array1, array2) { // to merge all the filters
+    let arrayMerge = array1.concat(array2)
+    return arrayMerge.filter( (item, index) =>
+        arrayMerge.indexOf(item) == index
+    )
+}
+  useEffect(() => {
+    setFilteredRestaurants(merge(searchfilteredRestaurants, locationfilteredRestaurants));
+  }, [searchfilteredRestaurants, locationfilteredRestaurants]);
+
 
   const handleLocationFilter = (location) => {
     setLocationFilter(location);
     console.log(locationFilter)
     if (location === "All") {
-      setFilteredRestaurants(restaurants);}
+      setLocationFilteredRestaurants(restaurants);}
     else {
       var newFilteredRestaurants = restaurants.filter(
         (restaurant) => restaurant.location === locationFilter
       );
     
       }
-    setFilteredRestaurants(newFilteredRestaurants)
+    setLocationFilteredRestaurants(newFilteredRestaurants)
     ;
   }
 
