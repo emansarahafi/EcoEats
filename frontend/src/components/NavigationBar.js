@@ -27,7 +27,9 @@ export default function NavigationBar({ cartItemsCount }) {
   return (
     <nav className="navigation">
       <ul>
-        <Link to="/">Navbar</Link>
+        <Link to="/">
+        <img src="/EcoEatsLogo.png" alt="Navbar" style={{ width: '100px', height: 'auto' }}/>
+        </Link>
       </ul>
 
       <ul>
