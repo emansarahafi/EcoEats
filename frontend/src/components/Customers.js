@@ -82,7 +82,9 @@ function Customers() {
                 <h5 style={{ marginBottom: "10px", color: "#555" }}>
                   Email: {user.email}
                 </h5>
-                <h5>Age: {user.age}</h5>
+                <h5>DOB: {user.dob}</h5>
+                <h5>Address: {user.address}</h5>
+                <h5>Phone Number: {user.phoneNumber}</h5>
               </div>
               <div>
                 <Button
