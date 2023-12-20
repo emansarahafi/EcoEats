@@ -89,6 +89,14 @@ function App() {
   };
 
   return (
+    <div
+      style={{
+        backgroundImage:
+          'url("https://images.pexels.com/photos/5898229/pexels-photo-5898229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',
+        backgroundSize: "cover",
+        minHeight: "100vh",
+      }}
+    >
       <BrowserRouter>
         <NavigationBar cartItemsCount={getItemsCount()} />
         <Routes>
@@ -166,6 +174,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+    </div>
   );
 }
 
