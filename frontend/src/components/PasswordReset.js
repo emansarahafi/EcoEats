@@ -1,28 +1,26 @@
 import React, { useState } from "react";
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 function PasswordReset() {
-  const url = "http://localhost:8022/api/users/reset-password"; // Update the URL for password reset
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [user, setUser] = useState({ email: "" });
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.id]: e.target.value });
   };
 
+  const isValidEmail = (email) => {
+    // Simple email validation for demonstration purposes
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    axios
-      .post(url, user)
-      .then((response) => {
-        console.log(response.data);
-        // Handle response...
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+    if (isValidEmail(user.email)) {
+      // Display confirmation when button is clicked and email is valid
+      window.confirm("Password reset email will be sent!");
+    }
   };
 
   return (
@@ -49,26 +47,6 @@ function PasswordReset() {
                 onChange={handleChange}
                 id="email"
               />
-              {/* You may want to add additional fields for new password and confirmation */}
-              {/* For example: */}
-              {/* <MDBInput
-                wrapperClass="mb-4"
-                label="New Password"
-                size="lg"
-                type="password"
-                placeholder="Enter new password"
-                onChange={handleChange}
-                id="newPassword"
-              />
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Confirm Password"
-                size="lg"
-                type="password"
-                placeholder="Confirm new password"
-                onChange={handleChange}
-                id="confirmPassword"
-              /> */}
               <MDBBtn className="mb-4 w-100 gradient-custom-4" size="lg" type="submit">
                 Reset Password
               </MDBBtn>
