@@ -15,11 +15,12 @@ const RestaurantCardItem = ({ restaurant, details }) => {
   const showRestaurantDetails = () => {
     navigate(`/restaurant/${restaurant._id}/details`);
   };
-useEffect(() => {
-  console.log("edf: ", typeof restaurant._id);
-  console.log("edf: ", restaurant._id)
-  console.log("edf: ", restaurant)
-}, [])
+
+  useEffect(() => {
+    console.log("edf: ", typeof restaurant._id);
+    console.log("edf: ", restaurant._id)
+    console.log("edf: ", restaurant)
+  }, [])
 
 
   const stars = [...Array(5)].map((_, i) => (

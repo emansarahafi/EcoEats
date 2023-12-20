@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 const RestaurantDetails = ({ restaurants }) => {
   let { id } = useParams();
 
-  const restaurant = restaurants.find((r) => r.id === Number(id));
+  const restaurant = restaurants.find((r) => r._id === Number(id));
 
   return (
     <RestaurantCardItem restaurant={restaurant} details={true} />
