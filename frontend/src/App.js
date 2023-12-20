@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { restaurants } from "./components/Data";
 import ListOfRestaurants from "./components/ListOfRestaurants";
 import ListOfFoodItems from "./components/ListOfFoodItems";
 import NavigationBar from "./components/NavigationBar";
@@ -19,7 +18,21 @@ import RestaurantDetails from "./components/RestaurantDetails";
 import PrivateRoute from "./components/PrivateRoute";
 import Checkout from "./components/Checkout";
 function App() {
+  const [restaurants, setRestaurants] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await axios.get("http://localhost:8022/api/restaurants");
+        setRestaurants(response.data.restaurants);
+      } catch (error) {
+        console.error("Error fetching restaurants:", error);
+      }
+    };
+
+    fetchRestaurants();
+  }, []);
 
   const handleIncrement = (id) => {
     const item = selectedItems.find((product) => product.id === id);
@@ -42,19 +55,24 @@ function App() {
   };
 
   const handleAddToCart = (item) => {
-    const oldItem = selectedItems.find(
-      (product) => product.id === item.id
-    );
-    if (!oldItem) {
-      setSelectedItems([...selectedItems, { ...item, qte: 1 }]);
+    const selectedItemsNames = selectedItems.map((item) => item.name);
+  
+    if (selectedItemsNames.includes(item.name)) {
+      console.log("already there");
+  
+      const updatedItems = selectedItems.map((product) => {
+        if (product.name === item.name) {
+          return { ...product, qte: product.qte + 1 };
+        }
+        return product;
+      });
+  
+      setSelectedItems(updatedItems);
     } else {
-      const newItems = selectedItems.filter(
-        (product) => product.id !== item.id
-      );
-      setSelectedItems([...newItems, { ...oldItem, qte: oldItem.qte + 1 }]);
+      console.log("not there");
+      setSelectedItems([...selectedItems, { ...item, qte: 1 }]);
     }
   };
-
   const getItemsCount = () => {
     return selectedItems.reduce((acc, current) => {
       return acc + current.qte;
@@ -65,7 +83,7 @@ function App() {
     <div
       style={{
         backgroundImage:
-          'url("your-background-image-url")', // Add your background image URL
+          'url("https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp")',
         backgroundSize: "cover",
         minHeight: "100vh",
       }}

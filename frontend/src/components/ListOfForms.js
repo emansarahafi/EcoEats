@@ -4,7 +4,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 
 function ListOfForms() {
-  const url = "http://localhost:8022/api/forms";
+  const url = "http://localhost:8022/api/customerservices";
   const [forms, setForms] = useState([]);
 
   useEffect(() => {
@@ -14,17 +14,16 @@ function ListOfForms() {
   const fetchForms = async () => {
     try {
       const response = await axios.get(url);
+      console.log(response); // Log the response to inspect its structure
       setForms(response.data.forms);
-      console.log(response);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching forms:", error);
     }
   };
 
   const handleDeleteForm = (formId) => {
     if (window.confirm("Are you sure you want to delete this form?")) {
       const token = localStorage.getItem("token");
-      console.log(token);
 
       if (token) {
         const headers = {
@@ -34,10 +33,12 @@ function ListOfForms() {
         axios
           .delete(`${url}/${formId}`, { headers })
           .then(() => {
-            setForms(forms.filter((form) => form._id !== formId));
+            setForms((prevForms) =>
+              prevForms.filter((form) => form._id !== formId)
+            );
           })
           .catch((err) => {
-            console.log(err);
+            console.error("Error deleting form:", err);
           });
       }
     }
@@ -45,7 +46,6 @@ function ListOfForms() {
 
   const handleStatusChange = (formId, newStatus) => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (token) {
       const headers = {
@@ -61,14 +61,14 @@ function ListOfForms() {
           setForms(updatedForms);
         })
         .catch((err) => {
-          console.log(err);
+          console.error("Error changing form status:", err);
         });
     }
   };
 
   return (
     <div style={{ width: "80%", margin: "auto", marginTop: "40px" }}>
-      {forms.map((form) => (
+      {forms && forms.map((form) => (
         <Accordion key={form._id}>
           <Accordion.Item eventKey="0">
             <Accordion.Header

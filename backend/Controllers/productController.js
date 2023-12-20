@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Restaurant = require("../models/Restaurant");
 
 // Get all products
 const getProducts = async (request, response) => {
@@ -28,7 +29,13 @@ const getOneProduct = async (req, res) => {
 // Post one product
 const postProduct = async (req, res) => {
   try {
-    const { name, description, rating, price, qte, image, restaurantId } = req.body;
+    const { name, description, rating, price, qte, image, availability, restaurantId } = req.body;
+
+    const restaurant = await Restaurant.findById(restaurantId);
+
+    if (!restaurant) {
+      return res.status(404).json({ msg: "No restaurant found with the given ID" });
+    }
 
     const newProduct = new Product({
       name: name,
@@ -37,9 +44,11 @@ const postProduct = async (req, res) => {
       price: price,
       qte: qte,
       image: image,
-      restaurant: restaurantId,
+      availability: availability,
     });
 
+    restaurant.products.push(newProduct);
+    await restaurant.save();
     await newProduct.save();
 
     res.status(201).json(newProduct);
@@ -57,7 +66,7 @@ const putProduct = async (req, res) => {
     await Product.findByIdAndUpdate(id, product);
     res.status(200).json({ msg: "Update success" });
   } catch (error) {
-    res.status(500).json({ msg: "Error on updating product" });
+    res.status(500).json({ msg: "Server error while creating product.", error: error.message });
   }
 };
 

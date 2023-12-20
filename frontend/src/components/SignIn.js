@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SignIn() {
-    const url = "http://localhost:8022/api/users";
+    const url = "http://localhost:8022/api/signIn";
     const navigate=useNavigate()
     const [user, setUser] = useState({ email: "", password: "" });
     const handleChange = (e) => {
@@ -21,7 +21,7 @@ function SignIn() {
                 console.log(response.data);
                 const token = response.data.token; localStorage.setItem("token", token);
                 if(response.data.user.role==='user'){navigate('/profile');} 
-                else{navigate('/customers')}
+                else{navigate('/users')}
             })
             .catch((error) => {
             console.error("There was an error!", error); });

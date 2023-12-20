@@ -2,20 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const customerServiceSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+  name: {
+    type: String,
     required: true,
   },
   email: {
     type: String,
     required: true,
   },
-  name: {
-    type: String,
-    required: true,
-  },
-  message: {
+  inquiry: {
     type: String,
     required: true,
   },

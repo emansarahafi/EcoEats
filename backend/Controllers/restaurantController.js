@@ -40,13 +40,16 @@ const getRestaurantProducts = async (req, res) => {
 // Post one restaurant
 const postRestaurant = async (req, res) => {
   try {
-    const { name, description, rating, logo } = req.body;
+    const { name, description, rating, logo, foundingDate, address, products } = req.body;
 
     const newRestaurant = new Restaurant({
       name: name,
       description: description,
       rating: rating,
       logo: logo,
+      foundingDate: foundingDate,
+      address: address,
+      products: products,
     });
 
     await newRestaurant.save();

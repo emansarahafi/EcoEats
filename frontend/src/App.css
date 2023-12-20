@@ -12,7 +12,41 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
 
+.filter-dropdowns {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-dropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header {
+  color: white;
+  padding: 20px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+.navigation {
+  background-color: white;
+  color: white;
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

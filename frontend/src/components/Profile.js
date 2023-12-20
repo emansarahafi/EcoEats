@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import Button from 'react-bootstrap/Button';
@@ -14,6 +15,7 @@ function Profile() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
   const [userUpdate, setUpdate] = useState({
     userName: '',
     email: '',
@@ -64,13 +66,29 @@ function Profile() {
     reload();
   };
 
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`${url}/${user._id}`);
-    } catch (error) {
-      console.error(error);
+  const handleDelete = () => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      const token = localStorage.getItem("token");
+  
+      if (token) {
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+  
+        axios
+          .delete(`${url}/${userId}`, { headers })
+          .then(() => {
+            // Assuming your backend sends a success message
+            alert("User deleted successfully.");
+            localStorage.removeItem("token"); // Remove the token from local storage
+            navigate('/');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
-  };
+  };  
 
   return (
     <>
