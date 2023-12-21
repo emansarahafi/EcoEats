@@ -8,7 +8,12 @@ const RestaurantDetails = ({ restaurants }) => {
   const restaurant = restaurants.find((r) => r._id === id);
 
   return (
-    <RestaurantCardItem restaurant={restaurant} details={true} />
+    <div style={{display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh'}}>
+      <RestaurantCardItem restaurant={restaurant} details={true} />
+    </div>
   );
 }
 
