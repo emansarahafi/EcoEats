@@ -28,7 +28,7 @@ function CustomerServiceForm() {
     };
 
     return (
-        <div style={{ height: '100vh', width: '100vw', backgroundImage: "url(https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp)", backgroundSize: 'cover', backgroundPosition: 'center center' }}>
+        <div style={{ height: '100vh', width: '100vw', backgroundSize: 'cover', backgroundPosition: 'center center' }}>
             <MDBContainer fluid className="d-flex align-items-center justify-content-center bg-image">
                 <div className="mask gradient-custom-3"></div>
                 <MDBCard className="m-5" style={{ maxWidth: "600px" }}>
