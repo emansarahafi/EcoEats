@@ -1,5 +1,8 @@
 # Group: G6 
 
+![EcoEats Logo](https://github.com/emansarahafi/EcoEats/assets/85173630/e1fba14f-6ca9-4db5-a277-eada9c93fb48)
+
+
 # Names of Group Members:
 - Eman Sarah Afi
 - Ines Bourouissi
