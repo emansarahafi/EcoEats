@@ -36,14 +36,8 @@ export default function NavigationBar({ cartItemsCount }) {
         {role === "user" && (
           <>
             <li>
-              <NavLink to="/orders">Orders</NavLink>
+              <NavLink to="/orders"><FontAwesomeIcon icon={faBell} /></NavLink>
             </li>
-            <li>
-              <NavLink to="/notifications">
-                <FontAwesomeIcon icon={faBell} />
-              </NavLink>
-            </li>
-
             <li>
               <NavLink to="/cart">
                 <FontAwesomeIcon icon={faShoppingCart} />

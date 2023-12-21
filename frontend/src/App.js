@@ -5,7 +5,6 @@ import ListOfFoodItems from "./components/ListOfFoodItems";
 import NavigationBar from "./components/NavigationBar";
 import Cart from "./components/Cart";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Notifications from "./components/Notifications";
 import CustomerServiceForm from "./components/CustomerServiceForm";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
@@ -119,7 +118,6 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/notifications" element={<Notifications />} />
           <Route path="/customers" element={<CustomerServiceForm />} />
           <Route 
             path="/customerServices" 
