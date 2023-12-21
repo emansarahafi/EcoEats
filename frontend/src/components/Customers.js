@@ -61,6 +61,11 @@ function Customers() {
               }}
             >
               {user.userName.toUpperCase()}
+               <img 
+                  src={`http://localhost:8022/${user.profileImagePath}`} 
+                  style={{ maxWidth: "100px" }}
+                  alt="Description"
+                />
             </Accordion.Header>
             <Accordion.Body
               style={{
