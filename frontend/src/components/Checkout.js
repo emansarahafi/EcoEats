@@ -42,49 +42,20 @@ function Checkout({ selectedItems, clearCart }) {
   return (
     <MDBContainer className="py-5">
       <div className="d-flex justify-content-between align-items-center mb-5">
-        <div className="d-flex flex-row align-items-center">
-          <h4 className="text-uppercase mt-1">Eligible</h4>
-          <span className="ms-2 me-3">Pay</span>
-        </div>
         <a href="/">Cancel and return to the website</a>
       </div>
       <MDBRow>
         <MDBCol md="7" lg="7" xl="6" className="mb-4 mb-md-0">
           <h5 className="mb-0 text-success"> Total price: {getTotal()}</h5>
+          <hr />
           <h5 className="mb-3">Thank you for using EcoEats!</h5>
           <div>
-            <div className="d-flex justify-content-between">
-              <div className="d-flex flex-row mt-1">
-              </div>
-              <div className="d-flex flex-row align-items-center text-primary">
-                <span className="ms-1">Add Insurer card</span>
-              </div>
-            </div>
-            <p>
-              Insurance claim and all neccessary dependencies will be submitted
-              to your insurer for the covered portion of this order.
-            </p>
-            <div
-              className="p-2 d-flex justify-content-between align-items-center"
-              style={{ backgroundColor: "#eee" }}
-            >
-              <span>Aetna - Open Access</span>
-              <span>Aetna - OAP</span>
-            </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
-              <div className="d-flex flex-row mt-1">
-                <h6>Patient Balance</h6>
-                <h6 className="fw-bold text-success ms-1">$13.24</h6>
-              </div>
               <div className="d-flex flex-row align-items-center text-primary">
                 <span className="ms-1">Add Payment card</span>
               </div>
             </div>
-            <p>
-              Insurance claim and all neccessary dependencies will be submitted
-              to your insurer for the covered portion of this order.
-            </p>
             <div class="d-flex flex-column mb-3">
               <MDBBtnGroup vertical aria-label="Vertical button group">
                 <input
