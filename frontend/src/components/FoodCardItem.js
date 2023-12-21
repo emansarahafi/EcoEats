@@ -1,7 +1,9 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Show from './Show'; // Import the Show component
+import Show from './Show';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 const FoodCardItem = ({ foodItem, handleAddToCart }) => {
   const stars = [...Array(5)].map((_, i) => (
@@ -36,7 +38,9 @@ const FoodCardItem = ({ foodItem, handleAddToCart }) => {
         {/* Add Show component for details */}
         <Show content={foodItem && foodItem.description} maxLength={30} />
         <div>
-          <Button onClick={() => handleAddToCart(foodItem)}>Add To Cart</Button>
+          <Button onClick={() => handleAddToCart(foodItem)}>
+          <FontAwesomeIcon icon={faShoppingCart} /> Add To Cart
+          </Button>
         </div>
       </Card.Body>
     </Card>

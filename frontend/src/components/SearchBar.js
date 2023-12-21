@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 function SearchBar({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,7 +27,7 @@ function SearchBar({ onSearch }) {
           className="mb-2"
         />
         <Button variant="primary" type="submit">
-          Search
+          <FontAwesomeIcon icon={faSearch} /> Search
         </Button>
       </Form>
     </div>
