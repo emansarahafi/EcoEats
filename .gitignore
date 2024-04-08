@@ -3,4 +3,3 @@ frontend/.DS_Store
 backend/.DS_Store
 backend/node_modules/
 backend/.env
-docker-compose.yml

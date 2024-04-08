@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  backend:
+    container_name: mern-backend
+    build: ./backend
+    ports:
+      - "8022:8022"
+    environment:
+      - PORT=${BACKEND_PORT}
+      - URL=${MONGODB_URL}
+      - JWT_SECRET=${JWT_SECRET}
+
+  frontend:
+    container_name: mern-frontend
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://backend:${BACKEND_PORT}
