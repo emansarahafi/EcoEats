@@ -2,21 +2,21 @@ version: '3'
 
 services:
   backend:
-    container_name: mern-backend
+    container_name: ecoeats-backend
     build: ./backend
     ports:
       - "8022:8022"
     environment:
-      - PORT=${BACKEND_PORT}
+      - PORT=8022 
       - URL=${MONGODB_URL}
       - JWT_SECRET=${JWT_SECRET}
 
   frontend:
-    container_name: mern-frontend
+    container_name: ecoeats-frontend
     build: ./frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
     environment:
-      - REACT_APP_API_URL=http://backend:${BACKEND_PORT}
+      - REACT_APP_API_URL=http://backend:8022
