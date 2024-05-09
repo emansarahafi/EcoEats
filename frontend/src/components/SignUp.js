@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBInput } from "mdb-react-ui-kit";
+import {
+  MDBContainer,
+  MDBCard,
+  MDBCardBody,
+  MDBInput,
+} from "mdb-react-ui-kit";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -26,7 +31,7 @@ function SignUp() {
     setUser({ ...user, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -41,17 +46,19 @@ function SignUp() {
       formData.append("file", image);
     }
 
-    axios
-      .post(url, formData)
-      .then((response) => {
-        console.log(response.data);
-        alert("Welcome to EcoEats! Please sign in to confirm your credentials.");
-        navigate("/signIn");
-      })
-      .catch((error) => {
+    try {
+      const response = await axios.post(url, formData);
+      console.log(response.data);
+      alert("Welcome to EcoEats! Please sign in to confirm your credentials.");
+      navigate("/signIn");
+    } catch (error) {
+      if (error.response) {
         alert(error.response.data.msg);
-        console.error("There was an error!", error);
-      });
+      } else {
+        alert("There was an error! Please try again later.");
+      }
+      console.error("There was an error!", error);
+    }
   };
 
   return (
@@ -70,6 +77,7 @@ function SignUp() {
               size="lg"
               type="text"
               placeholder="Enter username"
+              value={user.userName}
               onChange={handleChange}
               id="userName"
             />
@@ -78,6 +86,7 @@ function SignUp() {
               label="Your Email"
               size="lg"
               placeholder="Enter email"
+              value={user.email}
               onChange={handleChange}
               id="email"
             />
@@ -87,6 +96,7 @@ function SignUp() {
               size="lg"
               placeholder="Enter date of birth"
               type="date"
+              value={user.dob}
               onChange={handleChange}
               id="dob"
             />
@@ -96,6 +106,7 @@ function SignUp() {
               size="lg"
               placeholder="Enter phone number"
               type="text"
+              value={user.phoneNumber}
               onChange={handleChange}
               id="phoneNumber"
             />
@@ -105,6 +116,7 @@ function SignUp() {
               size="lg"
               placeholder="Enter address"
               type="text"
+              value={user.address}
               onChange={handleChange}
               id="address"
             />
@@ -114,13 +126,18 @@ function SignUp() {
               size="lg"
               type="password"
               placeholder="Enter password"
+              value={user.password}
               onChange={handleChange}
               id="password"
             />
             <div className="input-container">
               <label htmlFor="file" className="custum-file-upload">
                 <div className="icon">
-                  <svg viewBox="0 0 24 24" fill="" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill=""
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -135,9 +152,23 @@ function SignUp() {
                 <input id="file" type="file" onChange={handleImageChange} />
               </label>
             </div>
-            <MDBBtn className="mb-4 w-100 gradient-custom-4" size="lg" type="submit">
+            <button
+              className="mb-4 w-100 gradient-custom-4 custom-button" // Add a custom class for the button
+              style={{
+                backgroundColor: "#4caf50", // Change the background color
+                color: "#fff", // Change the text color
+                border: "none", // Remove border
+                borderRadius: "8px", // Add border-radius
+                padding: "12px 24px", // Adjust padding
+                fontSize: "1.1rem", // Adjust font size
+                cursor: "pointer",
+                transition: "background-color 0.3s ease", // Add transition for smooth hover effect
+              }}
+              type="submit"
+            >
               Register
-            </MDBBtn>
+            </button>
+
             <div className="text-center">
               <p className="mb-0">
                 Already have an account? <Link to="/signIn">Sign in</Link>
