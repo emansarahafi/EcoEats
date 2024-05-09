@@ -14,6 +14,11 @@ services:
       replicas: 2
       restart_policy:
         condition: on-failure
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"  
+        max-file: "3"    
 
   frontend:
     image: ecoeats-frontend:latest
@@ -30,8 +35,8 @@ services:
         condition: on-failure
 
   loadbalancer:
-    image: nginx
-    container_name: ecoeats-loadbalancer
+    image: ecoeats-nginx:latest
+    build: ./nginx
     ports:
       - "80:80"
     volumes:
@@ -39,3 +44,16 @@ services:
     depends_on:
       - backend
       - frontend
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo_data:/data/db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"  
+        max-file: "3"    
+
+volumes:
+  mongo_data:

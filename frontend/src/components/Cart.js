@@ -2,7 +2,6 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate} from 'react-router-dom';
 
-
 const Cart = ({ selectedItems, handleIncrement, handleDecrement }) => {
   const getTotal = () => {
     let total = 0;

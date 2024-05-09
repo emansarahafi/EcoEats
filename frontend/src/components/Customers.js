@@ -4,7 +4,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 
 function Customers() {
-  const url = "http://localhost:8022/api/users";
+  const url = "/api/users";
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

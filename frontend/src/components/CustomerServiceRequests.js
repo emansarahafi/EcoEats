@@ -4,7 +4,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 
 function CustomerServiceRequests() {
-  const url = "http://localhost:8022/api/customerservices";
+  const url = "/api/customerservices";
   const [customerServiceRequest, setCustomerServiceRequest] = useState([]);
 
   useEffect(() => {

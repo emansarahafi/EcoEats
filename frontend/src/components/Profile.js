@@ -9,7 +9,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 function Profile() {
-  const url = 'http://localhost:8022/api/users';
+  const url = '/api/users';
   const [user, setUser] = useState({});
   const [userId, setUserId] = useState(null);
   const [show, setShow] = useState(false);

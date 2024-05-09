@@ -24,7 +24,7 @@ function Checkout({ selectedItems, clearCart }) {
       setIsLoading(true);
       const total = getTotal();
       const token = localStorage.getItem("token");
-      await axios.post("http://localhost:8022/api/orders",
+      await axios.post("/api/orders",
       {
         products: selectedItems.map(product => product._id),
         totalPrice: total,

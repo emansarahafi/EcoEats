@@ -10,7 +10,7 @@ export function Orders() {
       try {
         setIsLoading(true);
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8022/api/orders",
+        const response = await axios.get("/api/orders",
         {
           headers: { Authorization: "Bearer " + token },
         });

@@ -12,7 +12,7 @@ const ListOfFoodItems = ({ handleAddToCart }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8022/api/restaurants/${id}`);
+        const response = await axios.get(`/api/restaurants/${id}`);
         if (response.data.restaurant) {
           setSelectedRestaurant(response.data.restaurant);
           setFilteredFoodItems(response.data.restaurant.products);

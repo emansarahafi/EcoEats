@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const response = await axios.get("http://localhost:8022/api/restaurants");
+        const response = await axios.get("/api/restaurants");
         setRestaurants(response.data.restaurants);
       } catch (error) {
         console.error("Error fetching restaurants:", error);
